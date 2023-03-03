@@ -1,0 +1,27 @@
+.background {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("./asset/background.png");
+  background-position: center;
+}
+
+body {
+  font-family: "Quicksand";
+  background-color: whitesmoke;
+}
+
+.bg-primary {
+  background-color: #141a3b;
+}
+
+.text-primary {
+  color: #141a3b;
+}
+
+.bg-secondary {
+  background-color: #3ca693;
+}
+
+.text-secondary {
+  color: #3ca693;
+}
