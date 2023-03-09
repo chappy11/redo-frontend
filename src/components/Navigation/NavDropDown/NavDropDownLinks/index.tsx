@@ -4,11 +4,20 @@ import { NavItemTypes } from "../../../../types/NavigationTypes.type";
 type Props = NavItemTypes;
 
 export default function NavDropDownLinks(props: Props) {
-  const { name, url } = props;
+  const { name } = props;
+
+  function handleClick() {
+    if (props.onClick === undefined) return;
+
+    props.onClick();
+  }
+
   return (
-    <li className=" cursor-pointer py-2 px-3 hover:bg-green-500 hover:text-white">
+    <li
+      className=" cursor-pointer py-2 px-3 hover:bg-green-500 hover:text-white"
+      onClick={handleClick}
+    >
       {" "}
-      <Link to={url} />
       {name}
     </li>
   );

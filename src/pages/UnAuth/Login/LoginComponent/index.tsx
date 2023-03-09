@@ -1,33 +1,46 @@
-import { useState } from "react";
-import { z } from "zod";
-import { ZodError } from "zod/lib";
 import { TextInput, Button } from "../../../../components";
+import useAlertOptions from "../../../../hooks/useAlertOptions";
+import useLogin from "../../../../hooks/user/useLogin";
+import { AlertIcon } from "../../../../types/AlertIcon.enum";
 import { RoutesPath } from "../../../../types/RoutesPath.enum";
-import { LoginPayload } from "../../../../types/UserServiceType.type";
+import { save } from "../../../../utils/storage.utils";
+import useValidateLogin from "../hooks/useValidateLogin";
 
 const IMAGE = require("../../../../asset/white-logo.png");
 
 export default function LoginPage() {
-  const [user, setUser] = useState<LoginPayload>({ email: "", password: "" });
+  const { onChange, validateUser, user: payload } = useValidateLogin();
+  const { alertError, alertWithAction } = useAlertOptions();
+  const { sendRequest } = useLogin();
 
-  const loginSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(1),
-  });
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+  const handleRequest = async () => {
+    try {
+      if (payload) {
+        const data = await sendRequest(payload);
+        if (data === undefined || !data) {
+          return;
+        }
+        save(data);
+        alertWithAction({
+          title: "Successfully",
+          text: "Successfully Login!",
+          icon: AlertIcon.SUCCESS,
+          onConfirm: () => (window.location.href = RoutesPath.DASHBOARD),
+        });
+      }
+    } catch (error) {
+      alertError();
+    }
   };
 
   function handleLogin() {
-    try {
-      const loginValidation = loginSchema.parse({
-        email: user.email,
-        password: user.password,
-      });
-      console.log(loginValidation);
-    } catch (error: any) {}
+    if (!validateUser()) {
+      return;
+    }
+
+    handleRequest();
   }
+
   return (
     <div className=" w-full h-full flex background justify-center items-center">
       <div className=" bg-white w-3/4 p-5 bg-opacity-90">

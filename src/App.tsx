@@ -7,17 +7,34 @@ import Login from "./pages/UnAuth/Login";
 import Register from "./pages/UnAuth/Register";
 import Dashboard from "./pages/Auth/Dashboard";
 import SellRepubrish from "./pages/Auth/SellRepubrish";
+import axios from "axios";
+import { BASE_URL } from "./constant/config";
+import useGetFromStorage from "./hooks/useGetFromStorage";
+import { useMemo } from "react";
+
+axios.defaults.baseURL = BASE_URL;
 
 function App() {
-  console.log("GG", process.env.BASE_URL);
+  const { data: user } = useGetFromStorage();
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={RoutesPath.HOME} element={<Home />} />
-        <Route path={RoutesPath.LOGIN} element={<Login />} />
-        <Route path={RoutesPath.REGISTER} element={<Register />} />
-        <Route path={RoutesPath.DASHBOARD} element={<Dashboard />} />
-        <Route path={RoutesPath.SELL_REPUBRISHED} element={<SellRepubrish />} />
+        {!user ? (
+          <>
+            <Route path={RoutesPath.HOME} element={<Home />} />
+            <Route path={RoutesPath.LOGIN} element={<Login />} />
+            <Route path={RoutesPath.REGISTER} element={<Register />} />
+          </>
+        ) : (
+          <>
+            <Route path={RoutesPath.DASHBOARD} element={<Dashboard />} />
+            <Route
+              path={RoutesPath.SELL_REPUBRISHED}
+              element={<SellRepubrish />}
+            />
+          </>
+        )}
       </Routes>
     </BrowserRouter>
   );

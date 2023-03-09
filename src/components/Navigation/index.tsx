@@ -1,24 +1,31 @@
 import { useMemo, useState } from "react";
 import { FaThList, FaShoppingCart } from "react-icons/fa";
+import swal from "sweetalert";
+import { BASE_URL } from "../../constant/config";
+import useGetFromStorage from "../../hooks/useGetFromStorage";
+import { AlertIcon } from "../../types/AlertIcon.enum";
 
 import { NavItemTypes } from "../../types/NavigationTypes.type";
 import { RoutesPath } from "../../types/RoutesPath.enum";
+import { logout } from "../../utils/storage.utils";
 import NavDropDown from "./NavDropDown";
 
 const logo = require("../../asset/logo.png");
-const sampleProfile = require("../../asset/sample-profile.jpg");
 const LINKS: NavItemTypes[] = [
   {
     name: "Home",
     url: RoutesPath.HOME,
+    onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
     name: "Login",
     url: RoutesPath.LOGIN,
+    onClick: () => (window.location.href = RoutesPath.LOGIN),
   },
   {
     name: "Register",
     url: RoutesPath.REGISTER,
+    onClick: () => (window.location.href = RoutesPath.REGISTER),
   },
 ];
 
@@ -26,29 +33,43 @@ const AUTHLINK: NavItemTypes[] = [
   {
     name: "Notification",
     url: RoutesPath.HOME,
+    onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
     name: "View Profile",
     url: RoutesPath.LOGIN,
+    onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
     name: "My Product",
     url: RoutesPath.REGISTER,
+    onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
     name: "History",
     url: "/",
+    onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
     name: "Logout",
     url: "/",
+    onClick: () => {
+      console.log("HI");
+      swal({
+        title: "Logout",
+        text: "Are you sure do want to logout?",
+        icon: AlertIcon.WARNING,
+        dangerMode: true,
+      }).then((val) => {
+        logout();
+        window.location.href = RoutesPath.HOME;
+      });
+    },
   },
 ];
 export default function Navigation() {
-  const [user, setUser] = useState<any>({
-    name: "John Rey Lumangyao",
-  });
-  // const [user, setUser] = useState<any>(undefined);
+  const { data: user } = useGetFromStorage();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const displayLinks = useMemo(() => {
@@ -68,8 +89,8 @@ export default function Navigation() {
           <li onClick={() => setIsOpen((e) => !e)}>
             {" "}
             <img
-              src={sampleProfile}
-              className=" h-16 w-16 mr-10 rounded-full"
+              src={BASE_URL + user.profilePic}
+              className=" h-16 w-16 mr-10 rounded-full bg-white"
               alt="profile"
             />
           </li>

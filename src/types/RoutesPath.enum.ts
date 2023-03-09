@@ -2,6 +2,6 @@ export enum RoutesPath {
   HOME = "/",
   LOGIN = "/login",
   REGISTER = "/register",
-  DASHBOARD = "/dashboard",
+  DASHBOARD = "/",
   SELL_REPUBRISHED = "/sellrepubrish",
 }
