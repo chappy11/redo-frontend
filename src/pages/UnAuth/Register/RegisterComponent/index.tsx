@@ -55,7 +55,7 @@ export default function RegisterComponent() {
 
   return (
     <div className=" w-full h-full background flex justify-center items-center">
-      <div className=" bg-white p-4 w-4/5 bg-opacity-90">
+      <div className=" bg-white p-4 w-4/5 bg-opacity-90 md:w-1/4 lg:w-1/4">
         <div className=" w-full flex justify-center items-center">
           <img src={IMAGE} className=" w-40 h-40" alt="logo" />
         </div>

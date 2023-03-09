@@ -41,8 +41,8 @@ const AUTHLINK: NavItemTypes[] = [
     onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
-    name: "My Product",
-    url: RoutesPath.REGISTER,
+    name: "My Shop",
+    url: RoutesPath.SHOPS,
     onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
@@ -54,7 +54,6 @@ const AUTHLINK: NavItemTypes[] = [
     name: "Logout",
     url: "/",
     onClick: () => {
-      console.log("HI");
       swal({
         title: "Logout",
         text: "Are you sure do want to logout?",

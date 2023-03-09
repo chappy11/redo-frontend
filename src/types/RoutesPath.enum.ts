@@ -4,4 +4,5 @@ export enum RoutesPath {
   REGISTER = "/register",
   DASHBOARD = "/",
   SELL_REPUBRISHED = "/sellrepubrish",
+  SHOPS = "/shops",
 }
