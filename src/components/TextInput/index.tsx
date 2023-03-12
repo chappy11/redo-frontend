@@ -12,6 +12,8 @@ export default function TextInput(props: Props) {
     if (props.isRounded) {
       return "rounded-full";
     }
+
+    return "rounded-md";
   }, [props.isRounded]);
 
   return (

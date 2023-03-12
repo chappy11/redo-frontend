@@ -43,7 +43,7 @@ const AUTHLINK: NavItemTypes[] = [
   {
     name: "My Shop",
     url: RoutesPath.SHOPS,
-    onClick: () => (window.location.href = RoutesPath.HOME),
+    onClick: () => (window.location.href = RoutesPath.SHOPS),
   },
   {
     name: "History",

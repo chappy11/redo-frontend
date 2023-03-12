@@ -11,6 +11,7 @@ import axios from "axios";
 import { BASE_URL } from "./constant/config";
 import useGetFromStorage from "./hooks/useGetFromStorage";
 import { useMemo } from "react";
+import Shop from "./pages/Auth/Shop";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -33,6 +34,7 @@ function App() {
               path={RoutesPath.SELL_REPUBRISHED}
               element={<SellRepubrish />}
             />
+            <Route path={RoutesPath.SHOPS} element={<Shop />} />
           </>
         )}
       </Routes>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserInfo } from "../types/User.type";
+
 import { LoginPayload, RegisterPayload } from "../types/UserServiceType.type";
 
 const login = async (payload: LoginPayload) => {
@@ -11,7 +11,7 @@ const login = async (payload: LoginPayload) => {
   return resp;
 };
 
-const register = async (payload: RegisterPayload) => {
+const register = async (payload: RegisterPayload): Promise<any> => {
   const headers = {
     "Content-Type": "text/plain",
   };

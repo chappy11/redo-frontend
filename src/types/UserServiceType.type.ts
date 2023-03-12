@@ -9,3 +9,11 @@ export type RegisterPayload = {
   password: string;
   phone: string;
 };
+
+export type AdditionalInfoPayload = {
+  user_id: string;
+  name: string;
+  bir: string;
+  dti: string;
+  address: string;
+};
