@@ -15,7 +15,9 @@ export default function ItemCard(props: Props) {
       <p className=" text-center">{props.name}</p>
       <p className=" font-bold text-center mt-5">PHP {props.price}</p>
       <div className=" h-7" />
-      <Button isFull>View Details</Button>
+      <Button isFull onClick={props.onClick}>
+        View Details
+      </Button>
     </div>
   );
 }

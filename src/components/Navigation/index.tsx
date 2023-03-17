@@ -7,6 +7,7 @@ import { AlertIcon } from "../../types/AlertIcon.enum";
 
 import { NavItemTypes } from "../../types/NavigationTypes.type";
 import { RoutesPath } from "../../types/RoutesPath.enum";
+import { UserEnum } from "../../types/UserEnum.enum";
 import { logout } from "../../utils/storage.utils";
 import NavDropDown from "./NavDropDown";
 
@@ -30,6 +31,49 @@ const LINKS: NavItemTypes[] = [
 ];
 
 const AUTHLINK: NavItemTypes[] = [
+  {
+    name: "Notification",
+    url: RoutesPath.HOME,
+    onClick: () => (window.location.href = RoutesPath.HOME),
+  },
+  {
+    name: "View Profile",
+    url: RoutesPath.LOGIN,
+    onClick: () => (window.location.href = RoutesPath.HOME),
+  },
+  {
+    name: "My Salvage Items",
+    url: RoutesPath.SHOPS,
+    onClick: () => (window.location.href = RoutesPath.SALVAGE_ITEM),
+  },
+  {
+    name: "Orders",
+    url: RoutesPath.HOME,
+    onClick: () => (window.location.href = RoutesPath.HOME),
+  },
+  {
+    name: "History",
+    url: "/",
+    onClick: () => (window.location.href = RoutesPath.HOME),
+  },
+  {
+    name: "Logout",
+    url: "/",
+    onClick: () => {
+      swal({
+        title: "Logout",
+        text: "Are you sure do want to logout?",
+        icon: AlertIcon.WARNING,
+        dangerMode: true,
+      }).then((val) => {
+        logout();
+        window.location.href = RoutesPath.HOME;
+      });
+    },
+  },
+];
+
+const SELLER: NavItemTypes[] = [
   {
     name: "Notification",
     url: RoutesPath.HOME,
@@ -66,13 +110,18 @@ const AUTHLINK: NavItemTypes[] = [
     },
   },
 ];
+
 export default function Navigation() {
   const { data: user } = useGetFromStorage();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const displayLinks = useMemo(() => {
-    const linkArray = user ? AUTHLINK : LINKS;
+    const linkArray = user
+      ? user?.userRoles === UserEnum.USER
+        ? AUTHLINK
+        : SELLER
+      : LINKS;
     if (isOpen) {
       return <NavDropDown links={linkArray} />;
     }

@@ -29,7 +29,7 @@ export default function Button(props: Props) {
   return (
     <button
       {...props}
-      className={` bg-green-600 text-white py-2  ${displayRounded} ${displayFull} hover:border hover:text-green-500 hover:border-green-500 hover:text-green hover:bg-white`}
+      className={` bg-green-600 text-white py-2 w-100 min-w-max px-3    ${displayRounded} ${displayFull} hover:border hover:text-green-500 hover:border-green-500 hover:text-green hover:bg-white`}
       disabled={props.isDisabled || props.isLoading}
     >
       {displayName}

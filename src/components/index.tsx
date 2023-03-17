@@ -5,6 +5,7 @@ import ItemCard from "./ItemCard";
 import PageContainer from "./PageContainer";
 import ImageInput from "./ImageInput";
 import Alert from "./Alert";
+import TextArea from "./TextArea";
 export {
   Navigation,
   TextInput,
@@ -13,4 +14,5 @@ export {
   PageContainer,
   ImageInput,
   Alert,
+  TextArea,
 };
