@@ -6,6 +6,8 @@ import PageContainer from "./PageContainer";
 import ImageInput from "./ImageInput";
 import Alert from "./Alert";
 import TextArea from "./TextArea";
+import ImageView from "./ImageView";
+
 export {
   Navigation,
   TextInput,
@@ -15,4 +17,5 @@ export {
   ImageInput,
   Alert,
   TextArea,
+  ImageView,
 };

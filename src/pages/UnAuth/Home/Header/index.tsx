@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <header className="background flex w-screen h-screen justify-center items-center flex-col">
-      <div className=" p-6">
+      <div className=" p-6 mt-20">
         <h3 className=" text-white text-4xl text-center mb-6">
           Don't worry about it
         </h3>

@@ -4,6 +4,7 @@ type Props = React.DetailedHTMLProps<
   HTMLButtonElement
 > & {
   children: string;
+  backgroundColor?: string | undefined;
   isrounded?: boolean | undefined;
   isFull?: boolean | undefined;
   isDisabled?: boolean | undefined;
@@ -26,10 +27,17 @@ export default function Button(props: Props) {
     return props.children;
   }, [props.children, props.isLoading]);
 
+  const bgColor = useMemo(() => {
+    if (props.backgroundColor) {
+      return props.backgroundColor;
+    }
+
+    return "bg-green-600";
+  }, [props.backgroundColor]);
   return (
     <button
       {...props}
-      className={` bg-green-600 text-white py-2 w-100 min-w-max px-3    ${displayRounded} ${displayFull} hover:border hover:text-green-500 hover:border-green-500 hover:text-green hover:bg-white`}
+      className={` ${bgColor} text-white py-2 w-100 min-w-max px-3    ${displayRounded} ${displayFull} hover:border hover:text-green-500 hover:border-green-500 hover:text-green hover:bg-white`}
       disabled={props.isDisabled || props.isLoading}
     >
       {displayName}

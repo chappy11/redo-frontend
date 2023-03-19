@@ -21,4 +21,10 @@ const register = async (payload: RegisterPayload): Promise<any> => {
   return data;
 };
 
-export { login, register };
+const getUserData = async (user_id: string) => {
+  const resp = await axios.get("user/userinfo/" + user_id);
+
+  return resp;
+};
+
+export { login, register, getUserData };

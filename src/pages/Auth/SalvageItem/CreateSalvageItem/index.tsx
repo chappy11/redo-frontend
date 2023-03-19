@@ -60,7 +60,7 @@ export default function CreateSalvageItem() {
         <img
           src={URL.createObjectURL(pic1)}
           alt="pic1"
-          className=" h-80  w-80"
+          className=" h-56  w-52"
         />
       );
     }
@@ -74,7 +74,7 @@ export default function CreateSalvageItem() {
         <img
           src={URL.createObjectURL(pic2)}
           alt="pic2"
-          className=" h-80  w-80"
+          className=" h-56  w-52"
         />
       );
     }
@@ -88,7 +88,7 @@ export default function CreateSalvageItem() {
         <img
           src={URL.createObjectURL(pic3)}
           alt="pic3"
-          className=" h-80  w-80"
+          className=" h-56  w-52"
         />
       );
     }

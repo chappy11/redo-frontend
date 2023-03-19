@@ -47,9 +47,14 @@ const AUTHLINK: NavItemTypes[] = [
     onClick: () => (window.location.href = RoutesPath.SALVAGE_ITEM),
   },
   {
-    name: "Orders",
-    url: RoutesPath.HOME,
-    onClick: () => (window.location.href = RoutesPath.HOME),
+    name: "My Shops",
+    url: RoutesPath.SHOPS,
+    onClick: () => (window.location.href = RoutesPath.SHOPS),
+  },
+  {
+    name: "Selling",
+    url: RoutesPath.USER_SELLING_TRANSACTION,
+    onClick: () => (window.location.href = RoutesPath.USER_SELLING_TRANSACTION),
   },
   {
     name: "History",
@@ -90,10 +95,16 @@ const SELLER: NavItemTypes[] = [
     onClick: () => (window.location.href = RoutesPath.SHOPS),
   },
   {
+    name: "Transactions",
+    url: RoutesPath.SALVAGE_TRANSACTIONS,
+    onClick: () => (window.location.href = RoutesPath.SALVAGE_TRANSACTIONS),
+  },
+  {
     name: "History",
     url: "/",
     onClick: () => (window.location.href = RoutesPath.HOME),
   },
+
   {
     name: "Logout",
     url: "/",

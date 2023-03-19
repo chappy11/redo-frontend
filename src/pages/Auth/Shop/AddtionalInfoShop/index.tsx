@@ -18,7 +18,7 @@ function AdditionalInfoShop() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [birPhoto, setBirPhoto] = useState<any | null>(null);
   const [dtiPhoto, setDtiPhoto] = useState<any | null>(null);
-
+  const [shopPicture, setShopPicture] = useState<any | null>(null);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -32,6 +32,12 @@ function AdditionalInfoShop() {
   const onChangeBirPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setBirPhoto(e?.target?.files[0]);
+    }
+  };
+
+  const onChangeShopPicture = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setShopPicture(e?.target?.files[0]);
     }
   };
 
@@ -63,9 +69,29 @@ function AdditionalInfoShop() {
     return <ImageInput onChange={onChangeDtiPhoto} />;
   }, [dtiPhoto]);
 
+  const displayShopPhoto = useMemo(() => {
+    if (shopPicture) {
+      return (
+        <img
+          src={URL.createObjectURL(shopPicture)}
+          alt="DTI"
+          className=" h-80 w-80"
+        />
+      );
+    }
+
+    return <ImageInput onChange={onChangeShopPicture} />;
+  }, [shopPicture]);
+
   async function handleSubmit() {
     try {
       setIsLoading(true);
+      if (!shopPicture) {
+        alertWarning("Shop Picture is Required");
+
+        return;
+      }
+
       if (!info.name) {
         alertWarning("Shop Name is Required");
 
@@ -96,6 +122,7 @@ function AdditionalInfoShop() {
 
       const formData = new FormData();
       formData.append("user_id", user?.user_id);
+      formData.append("pic", shopPicture);
       formData.append("name", info.name);
       formData.append("address", info.address);
       formData.append("bir", birPhoto);
@@ -122,6 +149,9 @@ function AdditionalInfoShop() {
   return (
     <div className=" bg-white w-3/4 m-auto  p-5">
       <h1 className=" text-lg font-bold">Repair Shop Info</h1>
+      <div className=" h-10" />
+      <p className=" text-center">Shop Picture</p>
+      <div className=" flex flex-1 justify-center">{displayShopPhoto}</div>
       <div className=" h-10" />
       <TextInput placeholder="Shop Name" onChange={onChange} name="name" />
       <div className=" h-5" />
