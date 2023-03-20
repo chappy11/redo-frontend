@@ -22,7 +22,7 @@ export default function SalvageItem() {
         name={val.deviceName}
         brand={val.deviceBrand}
         type={val.deviceType}
-        isSold={true}
+        isSold={val.isSold === "1"}
       />
     ));
   }, [salvageitem]);

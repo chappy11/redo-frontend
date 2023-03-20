@@ -32,6 +32,11 @@ const LINKS: NavItemTypes[] = [
 
 const AUTHLINK: NavItemTypes[] = [
   {
+    name: "Home",
+    url: RoutesPath.HOME,
+    onClick: () => (window.location.href = RoutesPath.HOME),
+  },
+  {
     name: "Notification",
     url: RoutesPath.HOME,
     onClick: () => (window.location.href = RoutesPath.HOME),
@@ -79,6 +84,11 @@ const AUTHLINK: NavItemTypes[] = [
 ];
 
 const SELLER: NavItemTypes[] = [
+  {
+    name: "Home",
+    url: RoutesPath.HOME,
+    onClick: () => (window.location.href = RoutesPath.HOME),
+  },
   {
     name: "Notification",
     url: RoutesPath.HOME,
