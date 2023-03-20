@@ -85,6 +85,7 @@ export default function RegisterComponent() {
           isRounded
           name="password"
           onChange={onChange}
+          type="password"
         />
         <div className=" h-4" />
         <TextInput
@@ -92,6 +93,7 @@ export default function RegisterComponent() {
           isRounded
           name="confirmPassword"
           onChange={onChange}
+          type="password"
         />
         <div className=" h-10" />
         <Button isFull isrounded onClick={handleRegister}>

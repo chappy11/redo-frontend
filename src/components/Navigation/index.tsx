@@ -134,7 +134,7 @@ export default function Navigation() {
         : SELLER
       : LINKS;
     if (isOpen) {
-      return <NavDropDown links={linkArray} />;
+      return <NavDropDown links={linkArray} user={user ? user : null} />;
     }
   }, [isOpen, user]);
 

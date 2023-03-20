@@ -39,6 +39,8 @@ function UserSellingOrderDetails() {
 
   const displayButton = useMemo(() => {
     const status = data?.salvageorder_status;
+    console.log("STATUS", status);
+
     if (status === ItemTransactionStatus.PENDING) {
       return (
         <Button

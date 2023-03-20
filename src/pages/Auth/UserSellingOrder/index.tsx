@@ -9,7 +9,7 @@ export default function UserSellingOrder() {
   const displayData = useMemo(() => {
     return data.map((val, i) => (
       <ItemCard
-        id={val.salvageItem_id}
+        id={val.salvageorder_id}
         pic1={val.pic1}
         name={val.deviceName}
         ref_id={val.ref_id}

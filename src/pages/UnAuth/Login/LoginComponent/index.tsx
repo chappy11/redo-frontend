@@ -59,6 +59,7 @@ export default function LoginPage() {
           placeholder="Password"
           name="password"
           onChange={onChange}
+          type="password"
         />
         <div className=" h-3" />
         <p className=" text-gray-600 text-right p-2 mb-3">Forgot Password ?</p>

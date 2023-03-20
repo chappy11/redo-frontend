@@ -42,9 +42,12 @@ export default function ItemCard(props: Props) {
     window.location.href = RoutesPath.SALVAGE_TRANSACTIONS_DETAILS + props.id;
   }
   return (
-    <div className=" w-full bg-white shadow-lg flex p-4" onClick={handleClick}>
+    <div
+      className=" w-full bg-white shadow-lg flex p-4 my-3"
+      onClick={handleClick}
+    >
       <img src={BASE_URL + pic1} className=" w-40 h-44" alt="Item" />
-      <div className="">
+      <div className=" px-5">
         <p className=" text-sm ">Reference No.: {ref_id}</p>
         <div className=" h-3" />
         <h1 className=" font-bold">{name}</h1>

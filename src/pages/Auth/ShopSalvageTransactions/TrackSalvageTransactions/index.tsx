@@ -145,7 +145,7 @@ export default function TrackSalvageTransactions() {
               {getTransactionIcon(ItemTransactionStatus.SUCCESS)}
             </p>
             <div className=" flex  justify-center items-center mx-5">
-              <p>Current Your item is Pending</p>
+              <p>Item Recieved!</p>
             </div>
           </div>
         );
