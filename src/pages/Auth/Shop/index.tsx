@@ -1,12 +1,34 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Navigation } from "../../../components";
 import useGetFromStorage from "../../../hooks/useGetFromStorage";
+import { getShop } from "../../../service/RepairShop";
 import { UserEnum } from "../../../types/UserEnum.enum";
 import AdditionalInfoShop from "./AddtionalInfoShop";
 import RepairShop from "./RepairShop";
 
 export default function Shop() {
   const { data: user } = useGetFromStorage();
+  const [shop, setShop] = useState<any>({});
+
+  const getData = useCallback(async () => {
+    try {
+      if (!user) {
+        return;
+      }
+      const resp = await getShop(user?.user_id);
+
+      if (resp.data.status == "1") {
+        console.log(resp);
+        setShop(resp.data.data[0]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    getData();
+  }, [user]);
 
   const displayShop = useMemo(() => {
     if (!user) {
@@ -17,8 +39,15 @@ export default function Shop() {
       return <AdditionalInfoShop />;
     }
 
-    return <RepairShop />;
-  }, [user]);
+    console.log(shop);
+    if (shop) {
+      if (shop?.shopIsActive === "1") {
+        return <RepairShop {...shop} />;
+      }
+
+      return <div>Pending</div>;
+    }
+  }, [user, shop]);
   return (
     <div>
       <Navigation />

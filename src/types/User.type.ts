@@ -1,6 +1,8 @@
 export type UserInfo = {
   user_id: string;
+  shopImage: string;
   fullname: string;
+  email: string;
   phoneNumber: string;
   profilePic: string;
   status: string;

@@ -3,6 +3,8 @@ import useAlertOptions from "../../../../hooks/useAlertOptions";
 import useLogin from "../../../../hooks/user/useLogin";
 import { AlertIcon } from "../../../../types/AlertIcon.enum";
 import { RoutesPath } from "../../../../types/RoutesPath.enum";
+import { UserInfo } from "../../../../types/User.type";
+import { UserEnum } from "../../../../types/UserEnum.enum";
 import { save } from "../../../../utils/storage.utils";
 import useValidateLogin from "../hooks/useValidateLogin";
 
@@ -18,15 +20,24 @@ export default function LoginPage() {
       if (payload) {
         const data = await sendRequest(payload);
         if (data === undefined || !data) {
+          alertError("Invalid Credential");
           return;
         }
+
         save(data);
+        let navigateTo =
+          (data as UserInfo).userRoles === UserEnum.ADMIN
+            ? (window.location.href = RoutesPath.ADMIN)
+            : (window.location.href = RoutesPath.DASHBOARD);
+
         alertWithAction({
           title: "Successfully",
           text: "Successfully Login!",
           icon: AlertIcon.SUCCESS,
-          onConfirm: () => (window.location.href = RoutesPath.DASHBOARD),
+          onConfirm: () => navigateTo,
         });
+
+        return;
       }
     } catch (error) {
       alertError();

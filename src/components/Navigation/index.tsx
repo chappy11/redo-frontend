@@ -64,7 +64,7 @@ const AUTHLINK: NavItemTypes[] = [
   {
     name: "History",
     url: "/",
-    onClick: () => (window.location.href = RoutesPath.HOME),
+    onClick: () => (window.location.href = RoutesPath.TRANSACTION_HISTORY),
   },
   {
     name: "Logout",
@@ -110,12 +110,6 @@ const SELLER: NavItemTypes[] = [
     onClick: () => (window.location.href = RoutesPath.SALVAGE_TRANSACTIONS),
   },
   {
-    name: "History",
-    url: "/",
-    onClick: () => (window.location.href = RoutesPath.HOME),
-  },
-
-  {
     name: "Logout",
     url: "/",
     onClick: () => {
@@ -138,6 +132,10 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const displayLinks = useMemo(() => {
+    if (user?.userRoles === UserEnum.ADMIN) {
+      window.location.href = RoutesPath.ADMIN;
+      return;
+    }
     const linkArray = user
       ? user?.userRoles === UserEnum.USER
         ? AUTHLINK

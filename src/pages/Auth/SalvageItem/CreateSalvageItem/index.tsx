@@ -12,6 +12,10 @@ import useGetFromStorage from "../../../../hooks/useGetFromStorage";
 import { createSalvage } from "../../../../service/SalvageItem";
 import { AlertIcon } from "../../../../types/AlertIcon.enum";
 import { RoutesPath } from "../../../../types/RoutesPath.enum";
+import {
+  calculateSalvagePrice,
+  convertMoney,
+} from "../../../../utils/money.utils";
 import Card from "../components/Card";
 
 const TYPE = ["Laptop", "Phone"];
@@ -25,13 +29,15 @@ export default function CreateSalvageItem() {
   const [selectedType, setSelectedType] = useState<string>("");
   const [deviceInfo, setDeviceInfo] = useState({
     name: "",
-    price: 0,
+    purchasePrice: 0,
+    numberOfYears: 0,
   });
+  const [price, setPrice] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
   const [pic1, setPic1] = useState<any | null>(null);
   const [pic2, setPic2] = useState<any | null>(null);
   const [pic3, setPic3] = useState<any | null>(null);
-
+  const [salvageLevel, setSalvageLevel] = useState<string>("0");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDeviceInfo({ ...deviceInfo, [e.target.name]: e.target.value });
   };
@@ -129,7 +135,24 @@ export default function CreateSalvageItem() {
         return;
       }
 
-      if (deviceInfo.price < 1) {
+      if (deviceInfo.purchasePrice < 1) {
+        alertWarning("Purchase price should not be less 1 peso");
+
+        return;
+      }
+
+      if (deviceInfo.numberOfYears < 1) {
+        alertWarning("Number of years should not be less 1 peso");
+
+        return;
+      }
+
+      if (salvageLevel === "" || salvageLevel === "0") {
+        alertWarning("Please choose salvage level");
+
+        return;
+      }
+      if (salvagePrice < 1) {
         alertWarning("Price should not be less 1 peso");
 
         return;
@@ -161,7 +184,10 @@ export default function CreateSalvageItem() {
       formdata.append("description", description);
       formdata.append("type", selectedType);
       formdata.append("brand", selectedBrand);
-      formdata.append("price", deviceInfo.price.toString());
+      formdata.append("purchasePrice", deviceInfo.purchasePrice.toString());
+      formdata.append("numberOfYears", deviceInfo.numberOfYears.toString());
+      formdata.append("salvageLevel", salvageLevel);
+      formdata.append("price", salvagePrice.toString());
       formdata.append("pic1", pic1);
       formdata.append("pic2", pic2);
       formdata.append("pic3", pic3);
@@ -185,6 +211,38 @@ export default function CreateSalvageItem() {
     }
   }
 
+  const salvagePrice = useMemo(() => {
+    return calculateSalvagePrice(
+      deviceInfo.purchasePrice.toString(),
+      deviceInfo.numberOfYears.toString(),
+      salvageLevel
+    );
+  }, [deviceInfo.numberOfYears, deviceInfo.purchasePrice, salvageLevel]);
+
+  const displaySalvagePrice = useMemo(() => {
+    if (salvageLevel === "0" || !salvageLevel) {
+      return;
+    }
+
+    if (deviceInfo.purchasePrice === 0) {
+      return;
+    }
+
+    if (deviceInfo.numberOfYears === 0) {
+      return;
+    }
+
+    return (
+      <h1 className=" text-right font-bold">
+        Salvage Price: {convertMoney(salvagePrice.toString())}
+      </h1>
+    );
+  }, [
+    salvageLevel,
+    deviceInfo.purchasePrice,
+    deviceInfo.numberOfYears,
+    salvagePrice,
+  ]);
   return (
     <PageContainer>
       <div className="  w-full flex  justify-center mb-10">
@@ -219,11 +277,30 @@ export default function CreateSalvageItem() {
               </select>
               <div className=" h-3" />
               <TextInput
-                placeholder="Price"
+                placeholder="Purchase Price"
                 type="number"
-                name="price"
+                name="purchasePrice"
                 onChange={onChange}
               />
+              <div className=" h-3" />
+              <TextInput
+                placeholder="Number of Years Used"
+                type="number"
+                name="numberOfYears"
+                onChange={onChange}
+              />
+              <div className=" h-3" />
+
+              <select
+                className={`border-2 outline-none px-5 py-2 border-gray-300 text-gray-600 w-full rounded  focus:border-green-400`}
+                onChange={(e) => setSalvageLevel(e.target.value)}
+                // value={displaySalvageLevel}
+              >
+                <option value="">Salvage Level</option>
+                <option value="4">Highly Broken</option>
+                <option value="3">Mid Broken</option>
+                <option value="2">Low Broken</option>
+              </select>
               <div className=" h-3" />
               <TextArea
                 placeholder="Device Details"
@@ -234,6 +311,7 @@ export default function CreateSalvageItem() {
             </div>
           </div>
           <div className=" h-3" />
+          {displaySalvagePrice}
           <Button isFull onClick={handleSubmit}>
             Submit
           </Button>

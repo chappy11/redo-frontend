@@ -15,4 +15,16 @@ export enum RoutesPath {
   SELL_REPUBRISHED = "/sellrepubrish",
   SHOPS = "/shops",
   CHECKOUT = "/checkout/",
+
+  //ADMIN
+  ADMIN = "/admin",
+  USERS = "/user",
+  USER_WITH_STATUS = "/user/",
+
+  TRANSACTION_HISTORY = "/user_transactions",
+  TRANSACTION_DETAILS = "/user_transaction/",
+
+  //repubrish
+  REPUBRISH_ITEMS = "/repubrishitems",
+  REPUBRISH_ITEMS_DETAILS = "/repubrishitems/",
 }

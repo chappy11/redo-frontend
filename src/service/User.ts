@@ -27,4 +27,15 @@ const getUserData = async (user_id: string) => {
   return resp;
 };
 
-export { login, register, getUserData };
+const getUsersByStatus = async (status: string) => {
+  const resp = await axios.get("user/userstatus/" + status);
+
+  return resp;
+};
+
+const allUser = async () => {
+  const resp = await axios.get("user/users");
+
+  return resp;
+};
+export { login, register, getUserData, getUsersByStatus, allUser };

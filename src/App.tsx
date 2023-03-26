@@ -18,12 +18,35 @@ import ShopSalvageTransactions from "./pages/Auth/ShopSalvageTransactions";
 import TrackSalvageTransactions from "./pages/Auth/ShopSalvageTransactions/TrackSalvageTransactions";
 import UserSellingOrder from "./pages/Auth/UserSellingOrder";
 import UserSellingOrderDetails from "./pages/Auth/UserSellingOrder/UserSellingOrderDetails";
+import { UserEnum } from "./types/UserEnum.enum";
+import { useMemo } from "react";
+
+import AllUser from "./pages/Admin/user/AllUser";
+import UserWithStatus from "./pages/Admin/user/UserWithStatus";
+import Admin from "./pages/Admin";
+import TransactionHistory from "./pages/Auth/TransactionHistory";
+import SellingTransactionDetails from "./pages/Auth/TransactionHistory/SellingTransactionDetails";
+import RepubrishItems from "./pages/Auth/RepubrishItems";
+import RepubrishItemDetails from "./pages/Auth/RepubrishItems/RepubrishItemDetails";
 
 axios.defaults.baseURL = BASE_URL;
 
 function App() {
   const { data: user } = useGetFromStorage();
 
+  const adminRoutes = useMemo(() => {
+    if (user?.userRoles === UserEnum.ADMIN)
+      return (
+        <>
+          <Route path={RoutesPath.ADMIN} element={<Admin />} />
+          <Route path={RoutesPath.USERS} element={<AllUser />} />
+          <Route
+            path={RoutesPath.USER_WITH_STATUS + ":status"}
+            element={<UserWithStatus />}
+          />
+        </>
+      );
+  }, [user]);
   return (
     <BrowserRouter>
       <Routes>
@@ -68,6 +91,25 @@ function App() {
               path={RoutesPath.USER_SELLING_TRANSACTION_DETAILS + ":id"}
               element={<UserSellingOrderDetails />}
             />
+            <Route
+              path={RoutesPath.TRANSACTION_HISTORY}
+              element={<TransactionHistory />}
+            />
+            <Route
+              path={RoutesPath.TRANSACTION_DETAILS + ":id"}
+              element={<SellingTransactionDetails />}
+            />
+
+            <Route
+              path={RoutesPath.REPUBRISH_ITEMS}
+              element={<RepubrishItems />}
+            />
+
+            <Route
+              path={RoutesPath.REPUBRISH_ITEMS_DETAILS + ":id"}
+              element={<RepubrishItemDetails />}
+            />
+            {adminRoutes}
           </>
         )}
       </Routes>

@@ -13,4 +13,10 @@ const applyShop = async (shopData: any): Promise<any> => {
   return response;
 };
 
-export { applyShop };
+const getShop = async (user_id: string) => {
+  const response = await axios.get("repair_shop/shop/" + user_id);
+
+  return response;
+};
+
+export { applyShop, getShop };

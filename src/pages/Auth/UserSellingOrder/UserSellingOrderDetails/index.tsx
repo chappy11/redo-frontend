@@ -58,7 +58,7 @@ function UserSellingOrderDetails() {
           backgroundColor={StatusColor.DELIVERED}
           onClick={() => handleClick(ItemTransactionStatus.DELIVERED)}
         >
-          Deliver Ordered
+          Ready For Delivery
         </Button>
       );
     }

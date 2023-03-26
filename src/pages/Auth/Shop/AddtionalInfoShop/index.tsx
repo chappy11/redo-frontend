@@ -145,7 +145,6 @@ function AdditionalInfoShop() {
     }
   }
 
-  console.log(info);
   return (
     <div className=" bg-white w-3/4 m-auto  p-5">
       <h1 className=" text-lg font-bold">Repair Shop Info</h1>

@@ -1,14 +1,46 @@
 import React from "react";
-import useGetFromStorage from "../../../../hooks/useGetFromStorage";
+import { BASE_URL } from "../../../../constant/config";
+import { GoTools, GoHistory } from "react-icons/go";
+import { GiShop } from "react-icons/gi";
+import ServiceItem from "./ServiceItem";
+import { RoutesPath } from "../../../../types/RoutesPath.enum";
 
-export default function RepairShop() {
-  const user = useGetFromStorage();
+type Props = any;
+
+export default function RepairShop(props: Props) {
+  function handleGoToRepubrish() {
+    window.location.href = RoutesPath.REPUBRISH_ITEMS;
+  }
 
   return (
-    <div className=" bg-white m-auto w-1/2 p-8">
-      <h1 className=" font-bold">Repair Information</h1>
-      <div className=" h-10" />
-      Shop Name: {user.data?.shop_name}
+    <div className=" m-auto w-1/2">
+      <div className=" bg-white shadow-lg full">
+        <div className=" flex justify-center bg-slate-50">
+          <img src={BASE_URL + "" + props.shopImage} alt="SHOP" className="" />
+        </div>
+        <h1 className=" font-bold text-center text-xl mt-5">
+          {props.shop_name}
+        </h1>
+        <h3 className=" text-center">{props.shopAddress}</h3>
+
+        <div className=" flex w-1/2 m-auto py-10">
+          <ServiceItem
+            icon={<GoTools />}
+            onClick={handleGoToRepubrish}
+            name="Repubrish Item"
+          />
+          <ServiceItem
+            icon={<GoHistory />}
+            onClick={handleGoToRepubrish}
+            name="Transaction History"
+          />
+          <ServiceItem
+            icon={<GiShop />}
+            onClick={handleGoToRepubrish}
+            name="Shop Details"
+          />
+        </div>
+      </div>
     </div>
   );
 }
