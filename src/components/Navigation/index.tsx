@@ -150,7 +150,10 @@ export default function Navigation() {
     if (user) {
       return (
         <>
-          <li className=" cursor-pointer hover:text-white h-24 w-24 text-3xl p-3 text-green-500 flex items-center justify-center">
+          <li
+            className=" cursor-pointer hover:text-white h-24 w-24 text-3xl p-3 text-green-500 flex items-center justify-center"
+            onClick={() => (window.location.href = RoutesPath.CART)}
+          >
             <FaShoppingCart />
           </li>
           <li onClick={() => setIsOpen((e) => !e)}>

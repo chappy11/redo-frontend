@@ -11,15 +11,15 @@ import { getTransactionIcon } from "../../../../../utils/Icons.utils";
 type Props = {
   id: string;
   pic1: string;
-  name: string;
-  ref_id: string;
-  brand: string;
   amount: string;
   status: string;
+  ref_id: string;
+  name: string;
+  noItems: string;
 };
 
 export default function ItemCard(props: Props) {
-  const { pic1, name, ref_id, brand, amount, status } = props;
+  const { pic1, amount, status, ref_id, name, noItems } = props;
 
   const color = useMemo(() => {
     if (status === ItemTransactionStatus.ACCEPTED) {
@@ -48,12 +48,18 @@ export default function ItemCard(props: Props) {
     >
       <img src={BASE_URL + pic1} className=" w-40 h-44" alt="Item" />
       <div className=" px-5">
-        <p className=" text-sm ">Reference No.: {ref_id}</p>
+        <p className="  text-lg font-bold">Reference No.: {ref_id}</p>
         <div className=" h-3" />
-        <h1 className=" font-bold">{name}</h1>
-        <p className=" text-sm">{brand}</p>
-        <div className=" h-2" />
-        <p>PHP {amount}</p>
+        <p>
+          <span className=" font-bold">Seller Name:</span> {name}
+        </p>
+
+        <p>
+          <span className=" font-bold">No. Items :</span>
+          {noItems}pcs
+        </p>
+        <div className=" h-4" />
+        <p className=" font-bold text-lg text-red-500">PHP {amount}</p>
         <div className=" h-2" />
         <div className=" flex">
           <p className={` text-xl ${color}`}>

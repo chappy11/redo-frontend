@@ -1,6 +1,12 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { Button, ImageView, PageContainer } from "../../../../components";
+import {
+  Button,
+  ImageView,
+  OrderItem,
+  PageContainer,
+  PaymentList,
+} from "../../../../components";
 import useGetTransactionById from "../../../../hooks/salvageOrder/useGetTransactionById";
 import useAlertOptions from "../../../../hooks/useAlertOptions";
 import { updateStatus } from "../../../../service/SalvageOrder";
@@ -81,9 +87,7 @@ function UserSellingOrderDetails() {
         <h1>Transaction Details</h1>
         <div className=" h-5" />
         <div className=" bg-white p-4">
-          <div className=" flex justify-center">
-            <ImageView pic1={data?.pic1} pic2={data?.pic2} pic3={data?.pic3} />
-          </div>
+          <OrderItem id={data?.salvageorder_id} />
           <h1 className=" font-bold">{data?.deviceName}</h1>
           <p className=" my-2">Transaction No. : {data?.ref_id}</p>
           <p className=" my-2">Brand : {data?.deviceBrand}</p>
@@ -92,11 +96,16 @@ function UserSellingOrderDetails() {
           <p className=" my-2">
             Shipping Address: {data?.salvage_shippingAddress}
           </p>
-          <p className=" my-2">Amount : PHP {data?.salvage_amount}</p>
-          <p className=" mt-2">Description:</p>
-          <p className=" text-sm">{data?.deviceDescription}</p>
+          <p className=" my-2">Amount : PHP {data?.order_totalAmount}</p>
+          <div className=" flex justify-end mb-5">{displayButton}</div>
+
+          <p className=" text-center text-red-500">
+            <span className=" font-bold">Note: </span>
+            Currently your money is in our hands. The system will automatically
+            transafer to your account after you finish this transaction.
+          </p>
+          <PaymentList ref_id={data?.ref_id} />
           <div className=" h-4" />
-          {displayButton}
         </div>
       </div>
     </PageContainer>

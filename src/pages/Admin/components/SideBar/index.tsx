@@ -7,7 +7,12 @@ import {
   TbDeviceLaptopOff,
 } from "react-icons/tb";
 import { FaUserCircle, FaUserAltSlash, FaUserCheck } from "react-icons/fa";
-import { MdPhonelink, MdPendingActions } from "react-icons/md";
+import {
+  MdPhonelink,
+  MdPendingActions,
+  MdOutlinePending,
+} from "react-icons/md";
+import { GiAutoRepair } from "react-icons/gi";
 export type NavType = {
   name: string;
   routes: string;
@@ -47,6 +52,19 @@ const NAV: NavType[] = [
         name: "Active Users",
         icon: <FaUserCheck />,
         routes: RoutesPath.USER_WITH_STATUS + "1",
+        children: null,
+      },
+    ],
+  },
+  {
+    name: "RepairShop",
+    icon: <GiAutoRepair />,
+    routes: RoutesPath.USERS,
+    children: [
+      {
+        name: " Shop Application",
+        icon: <MdOutlinePending />,
+        routes: RoutesPath.PENDING_SHOP,
         children: null,
       },
     ],

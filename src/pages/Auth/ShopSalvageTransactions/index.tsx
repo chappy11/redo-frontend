@@ -9,13 +9,13 @@ export default function ShopSalvageTransactions() {
   const displayTransactions = useMemo(() => {
     return transactions.map((val, i) => (
       <ItemCard
-        pic1={val.pic1}
-        name={val.deviceName}
-        ref_id={val.ref_id}
-        brand={val.deviceBrand}
-        amount={val.salvage_amount}
+        pic1={val.item.pic1}
+        amount={val.order_totalAmount}
         status={val.salvageorder_status}
+        ref_id={val.ref_id}
         id={val.salvageorder_id}
+        name={val.seller}
+        noItems={val.no_items}
       />
     ));
   }, [transactions]);

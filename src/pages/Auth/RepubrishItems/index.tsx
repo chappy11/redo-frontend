@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { PageContainer } from "../../../components";
+import { Button, PageContainer } from "../../../components";
 import useGetFromStorage from "../../../hooks/useGetFromStorage";
 import { getRepubrishItem } from "../../../service/RepubrishItem";
 import Item from "./Item";
+import { Routes } from "react-router-dom";
+import { RoutesPath } from "../../../types/RoutesPath.enum";
 
 export default function RepubrishItems() {
   const [data, setData] = useState<any[]>([]);
@@ -34,6 +36,13 @@ export default function RepubrishItems() {
     <PageContainer>
       <div className=" w-1/3 m-auto ">
         <h1>Repubrish Items</h1>
+        <Button
+          onClick={() =>
+            (window.location.href = RoutesPath.CREATE_REPUBRISH_ITEM)
+          }
+        >
+          Add Item
+        </Button>
         <div className=" mt-10" />
         {displayData}
       </div>

@@ -46,14 +46,16 @@ export default function ItemCard(props: Props) {
       className=" w-full bg-white shadow-lg flex p-4 my-3"
       onClick={handleClick}
     >
-      <img src={BASE_URL + pic1} className=" w-40 h-44" alt="Item" />
       <div className="">
-        <p className=" text-sm ">Reference No.: {ref_id}</p>
+        <p className=" text-lg font-bold">Reference No.: {ref_id}</p>
         <div className=" h-3" />
-        <h1 className=" font-bold">{name}</h1>
+        <h1 className=" ">
+          <span className=" font-bold">Buyer Name : </span>
+          {name}
+        </h1>
         <p className=" text-sm">{brand}</p>
         <div className=" h-2" />
-        <p>PHP {amount}</p>
+        <p className=" text-red-500 font-bold">PHP {amount}</p>
         <div className=" h-2" />
         <div className=" flex">
           <p className={` text-xl ${color}`}>

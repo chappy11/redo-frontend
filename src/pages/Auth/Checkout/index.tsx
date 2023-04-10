@@ -1,18 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, PageContainer, TextInput } from "../../../components";
+import { Button, Modal, PageContainer, TextInput } from "../../../components";
 import { BASE_URL } from "../../../constant/config";
-import useGetSalvageItemById from "../../../hooks/salvageitem/useGetSalvageItemById";
 import useAlertOptions from "../../../hooks/useAlertOptions";
 import useGetFromStorage from "../../../hooks/useGetFromStorage";
 import useGetUserInfo from "../../../hooks/user/useGetUserInfo";
 import { checkoutSalvageOrder } from "../../../service/SalvageOrder";
 import { AlertIcon } from "../../../types/AlertIcon.enum";
 import { RoutesPath } from "../../../types/RoutesPath.enum";
+import useGetActiveCart from "../../../hooks/salvageitem/useGetActiveCart";
+import { convertMoney } from "../../../utils/money.utils";
+
+const GCASH = require("../../../asset/GCash-Logo-Transparent-PNG-1.png");
 
 export default function Checkout() {
   const { id } = useParams();
-  const { data } = useGetSalvageItemById({ salvageItem_id: id ? id : "" });
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { data } = useGetActiveCart({ seller_id: id ?? "" });
   const { data: user, sendRequest: getUserInfo } = useGetUserInfo();
   const { data: currentUser } = useGetFromStorage();
   const [shippingInfo, setShippingInfo] = useState({
@@ -26,13 +30,16 @@ export default function Checkout() {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    if (!data) {
-      return;
-    }
+  const total = useMemo(() => {
+    let total: number = 0;
+    data.forEach((e) => {
+      let totalEachItem = parseInt(e.quantity) * parseFloat(e.salvage_price);
 
-    getUserInfo(data?.user_id);
-  }, [data, getUserInfo]);
+      total += totalEachItem;
+    });
+
+    return total;
+  }, [data]);
 
   const displaySellerInfo = useMemo(() => {
     if (!user) {
@@ -69,16 +76,16 @@ export default function Checkout() {
 
       const payload = {
         user_id: currentUser?.user_id,
-        salvageItem_id: data?.salvageItem_id,
-        amount: data?.salvage_price,
+        amount: total,
         recieverName: name,
         address: shippingInfo.address,
         mobile: mobile,
+        seller_id: data[0].seller_id,
       };
 
       const resp = await checkoutSalvageOrder(payload);
 
-      if (resp.data.status === "0") {
+      if (resp.data.status === 0) {
         return;
       }
 
@@ -93,6 +100,29 @@ export default function Checkout() {
     }
   }
 
+  const orderitem = useMemo(() => {
+    return data.map((val, i) => (
+      <div className=" w-full flex border-b border-b-slate-300 my-3 p-3">
+        <img className=" w-24 h-28" src={BASE_URL + val?.pic1} alt="pic1" />
+        <div className=" px-5">
+          <h1 className=" font-bold">{val?.deviceName}</h1>
+          <h3 className=" text-sm">{val?.deviceBrand}</h3>
+          <div className=" h-5" />
+          {val.fullname}
+          <p>
+            Total:{" "}
+            {convertMoney(
+              (
+                parseInt(val.quantity) * parseFloat(val.salvage_price)
+              ).toString()
+            )}
+            {}
+          </p>
+        </div>
+      </div>
+    ));
+  }, [data]);
+
   function navigateToTransactionPage() {
     window.location.href = RoutesPath.HOME;
   }
@@ -102,20 +132,22 @@ export default function Checkout() {
       <div className=" m-auto w-3/4 md:w-1/2">
         <h1 className=" font-bold text-xl">Checkout</h1>
         <div className=" h-5" />
-        <div className=" bg-white p-5 shadow-lg rounded-lg">
-          <div className=" w-full flex">
-            <img
-              className=" w-24 h-28"
-              src={BASE_URL + data?.pic1}
-              alt="pic1"
-            />
-            <div className=" px-5">
-              <h1 className=" font-bold">{data?.deviceName}</h1>
-              <h3 className=" text-sm">{data?.deviceBrand}</h3>
-              <div className=" h-5" />
-              {displaySellerInfo}
-            </div>
+        <Modal
+          showModal={isOpen}
+          setShowModal={setIsOpen}
+          confirmText="Confirm"
+          onConfirm={() => checkout()}
+          onCancel={() => setIsOpen(false)}
+        >
+          <div className=" p-5 flex justify-center flex-col items-center">
+            <h1>Pay with :</h1>
+            <img src={GCASH} alt="gcash" className=" h-1/2 w-1/2" />
+            <h1 className=" font-bold mt-5">{data[0]?.fullname}</h1>
+            <h1>{data[0]?.phoneNumber}</h1>
           </div>
+        </Modal>
+        <div className=" bg-white p-5 shadow-lg rounded-lg">
+          {orderitem}
           <div className=" h-5" />
           <div className=" w-full border-b-[0.5px] border-gray-300" />
           <div className=" h-5" />
@@ -143,10 +175,13 @@ export default function Checkout() {
           <div className=" h-5" />
           <p className=" text-right">
             <span className=" font-bold text-red-500">Total: </span>
-            <span className=" font-bold"> PHP {data?.salvage_price}</span>
+            <span className=" font-bold">
+              {" "}
+              PHP {convertMoney(total.toString())}
+            </span>
           </p>
           <div className=" w-full md:w-fit lg:w-fit mt-5">
-            <Button isFull onClick={checkout}>
+            <Button isFull onClick={() => setIsOpen(true)}>
               Checkout
             </Button>
           </div>

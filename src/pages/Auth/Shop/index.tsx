@@ -5,6 +5,7 @@ import { getShop } from "../../../service/RepairShop";
 import { UserEnum } from "../../../types/UserEnum.enum";
 import AdditionalInfoShop from "./AddtionalInfoShop";
 import RepairShop from "./RepairShop";
+import Pending from "./Pending";
 
 export default function Shop() {
   const { data: user } = useGetFromStorage();
@@ -39,13 +40,14 @@ export default function Shop() {
       return <AdditionalInfoShop />;
     }
 
+    if (user.userRoles === UserEnum.REPAIRER && user.isPending === "1") {
+      return <Pending />;
+    }
     console.log(shop);
     if (shop) {
-      if (shop?.shopIsActive === "1") {
+      if (shop?.shopIsActive === "1" && user.isPending === "0") {
         return <RepairShop {...shop} />;
       }
-
-      return <div>Pending</div>;
     }
   }, [user, shop]);
   return (

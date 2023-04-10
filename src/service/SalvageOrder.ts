@@ -35,3 +35,15 @@ export const updateStatus = async (payload: any) => {
 
   return resp;
 };
+
+export const getOrderItems = async (id: string) => {
+  const resp = await axios.get("salvage_order/item/" + id);
+
+  return resp;
+};
+
+export const getpayment = async (ref_id: string) => {
+  const resp = await axios.get("salvage_order/payment/" + ref_id);
+
+  return resp;
+};

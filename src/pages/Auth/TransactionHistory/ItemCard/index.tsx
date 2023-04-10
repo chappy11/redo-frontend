@@ -16,13 +16,11 @@ export default function ItemCard(props: Props) {
       <img src={BASE_URL + order.pic1} alt="Item" className=" h-44 w-40" />
       <div className=" px-5 py-2 w-full">
         <p className=" font-semibold">{order.ref_id}</p>
-        <p className=" mt-2 font-bold text-lg">{order.deviceName}</p>
-        <p className=" text-sm">{order.deviceBrand}</p>
         <p>{dateFormat(order.sellingTransactionDate)}</p>
         <div className=" flex w-full">
           <div className=" flex-1  ">
             <p className=" font-bold text-secondary mt-2">
-              PHP {convertMoney(order.salvage_amount)}
+              PHP {convertMoney(order.order_totalAmount)}
             </p>
           </div>
 

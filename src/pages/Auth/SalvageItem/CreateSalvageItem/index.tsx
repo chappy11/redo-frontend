@@ -17,6 +17,7 @@ import {
   convertMoney,
 } from "../../../../utils/money.utils";
 import Card from "../components/Card";
+import { DeviceType } from "../../../../constant/DeviceType";
 
 const TYPE = ["Laptop", "Phone"];
 
@@ -31,8 +32,8 @@ export default function CreateSalvageItem() {
     name: "",
     purchasePrice: 0,
     numberOfYears: 0,
+    quantity: 0,
   });
-  const [price, setPrice] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
   const [pic1, setPic1] = useState<any | null>(null);
   const [pic2, setPic2] = useState<any | null>(null);
@@ -112,14 +113,14 @@ export default function CreateSalvageItem() {
   }, [brands]);
 
   const displayType = useMemo(() => {
-    return TYPE.map((val, i) => (
+    return DeviceType.map((val, i) => (
       <>
         <option key={i.toString()} value={val}>
           {val}
         </option>
       </>
     ));
-  }, [TYPE]);
+  }, [DeviceType]);
 
   async function handleSubmit() {
     try {
@@ -191,6 +192,7 @@ export default function CreateSalvageItem() {
       formdata.append("pic1", pic1);
       formdata.append("pic2", pic2);
       formdata.append("pic3", pic3);
+      formdata.append("quantity", deviceInfo.quantity.toString());
 
       const resp = await createSalvage(formdata);
 
@@ -294,13 +296,19 @@ export default function CreateSalvageItem() {
               <select
                 className={`border-2 outline-none px-5 py-2 border-gray-300 text-gray-600 w-full rounded  focus:border-green-400`}
                 onChange={(e) => setSalvageLevel(e.target.value)}
-                // value={displaySalvageLevel}
               >
                 <option value="">Salvage Level</option>
                 <option value="4">Highly Broken</option>
                 <option value="3">Mid Broken</option>
                 <option value="2">Low Broken</option>
               </select>
+              <div className=" h-3" />
+              <TextInput
+                type="number"
+                placeholder="Quantity"
+                name="quantity"
+                onChange={onChange}
+              />
               <div className=" h-3" />
               <TextArea
                 placeholder="Device Details"

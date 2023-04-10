@@ -28,6 +28,13 @@ import TransactionHistory from "./pages/Auth/TransactionHistory";
 import SellingTransactionDetails from "./pages/Auth/TransactionHistory/SellingTransactionDetails";
 import RepubrishItems from "./pages/Auth/RepubrishItems";
 import RepubrishItemDetails from "./pages/Auth/RepubrishItems/RepubrishItemDetails";
+import CreateRepubrishItem from "./pages/Auth/RepubrishItems/CreateRepubrishItem";
+import RefubrishDashboard from "./pages/Auth/Dashboard/RefubrishDashboard";
+import ViewDetails from "./pages/Auth/RepubrishItems/ViewDetails";
+import RefubrishCart from "./pages/Auth/Cart/RefubrishCart";
+import PendingShop from "./pages/Admin/shop/PendingShop";
+import SalvageCart from "./pages/Auth/Cart/SalvageCart";
+import RefubrishCheckout from "./pages/Auth/Checkout/RefubrishCheckout";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -44,9 +51,35 @@ function App() {
             path={RoutesPath.USER_WITH_STATUS + ":status"}
             element={<UserWithStatus />}
           />
+          <Route path={RoutesPath.PENDING_SHOP} element={<PendingShop />} />
         </>
       );
   }, [user]);
+
+  const displayDashboard = useMemo(() => {
+    if (user?.userRoles === UserEnum.USER) {
+      return <RefubrishDashboard />;
+    }
+
+    return <Dashboard />;
+  }, [user?.userRoles]);
+
+  const dipslayCheckout = useMemo(() => {
+    return user?.userRoles === UserEnum.REPAIRER ? (
+      <Checkout />
+    ) : (
+      <RefubrishCheckout />
+    );
+  }, [user?.userRoles]);
+  const displayCart = useMemo(() => {
+    if (user?.userRoles === UserEnum.REPAIRER) {
+      return <SalvageCart />;
+    }
+
+    if (user?.userRoles === UserEnum.USER) {
+      return <RefubrishCart />;
+    }
+  }, [user?.userRoles]);
   return (
     <BrowserRouter>
       <Routes>
@@ -58,7 +91,7 @@ function App() {
           </>
         ) : (
           <>
-            <Route path={RoutesPath.DASHBOARD} element={<Dashboard />} />
+            <Route path={RoutesPath.DASHBOARD} element={displayDashboard} />
             <Route
               path={RoutesPath.SELL_REPUBRISHED}
               element={<CreateSalvageItem />}
@@ -82,7 +115,10 @@ function App() {
               path={RoutesPath.SALVAGE_TRANSACTIONS_DETAILS + ":id"}
               element={<TrackSalvageTransactions />}
             />
-            <Route path={RoutesPath.CHECKOUT + ":id"} element={<Checkout />} />
+            <Route
+              path={RoutesPath.CHECKOUT + ":id"}
+              element={dipslayCheckout}
+            />
             <Route
               path={RoutesPath.USER_SELLING_TRANSACTION}
               element={<UserSellingOrder />}
@@ -109,6 +145,17 @@ function App() {
               path={RoutesPath.REPUBRISH_ITEMS_DETAILS + ":id"}
               element={<RepubrishItemDetails />}
             />
+            <Route
+              path={RoutesPath.REPUBRISH_VIEW_DETAILS + ":id"}
+              element={<ViewDetails />}
+            />
+            <Route
+              path={RoutesPath.CREATE_REPUBRISH_ITEM}
+              element={<CreateRepubrishItem />}
+            />
+
+            {/* cart */}
+            <Route path={RoutesPath.CART} element={displayCart} />
             {adminRoutes}
           </>
         )}

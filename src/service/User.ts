@@ -38,4 +38,24 @@ const allUser = async () => {
 
   return resp;
 };
-export { login, register, getUserData, getUsersByStatus, allUser };
+
+const getpendingshop = async () => {
+  const resp = await axios.get("user/pending");
+
+  return resp;
+};
+
+const approved = async (user_id: string) => {
+  const resp = await axios.post("user/approved/" + user_id);
+
+  return resp;
+};
+export {
+  login,
+  register,
+  getUserData,
+  getUsersByStatus,
+  allUser,
+  getpendingshop,
+  approved,
+};

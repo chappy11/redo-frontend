@@ -7,9 +7,9 @@ export enum ItemTransactionStatus {
 }
 
 export enum StatusColor {
-  ACCEPTED = "bg-yellow-600",
-  PENDING = "bg-slate-600",
-  DELIVERED = "bg-orange-600",
-  CANCELED = "bg-red-600",
-  SUCCESS = "bg-green-600",
+  ACCEPTED = "text-yellow-600",
+  PENDING = "text-slate-600",
+  DELIVERED = "text-orange-600",
+  CANCELED = "text-red-600",
+  SUCCESS = "text-green-600",
 }

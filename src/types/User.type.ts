@@ -12,5 +12,6 @@ export type UserInfo = {
   birPhoto?: string;
   dtiPhoto?: string;
   shopAddress?: string;
+  isPending?: string;
   shopIsActive?: string;
 };

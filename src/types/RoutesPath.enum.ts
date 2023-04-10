@@ -20,6 +20,7 @@ export enum RoutesPath {
   ADMIN = "/admin",
   USERS = "/user",
   USER_WITH_STATUS = "/user/",
+  PENDING_SHOP = "/pending",
 
   TRANSACTION_HISTORY = "/user_transactions",
   TRANSACTION_DETAILS = "/user_transaction/",
@@ -27,4 +28,9 @@ export enum RoutesPath {
   //repubrish
   REPUBRISH_ITEMS = "/repubrishitems",
   REPUBRISH_ITEMS_DETAILS = "/repubrishitems/",
+  CREATE_REPUBRISH_ITEM = "/addrepubrish",
+  REPUBRISH_VIEW_DETAILS = "/viewrefubrishdetails/",
+
+  //Cart
+  CART = "/cart",
 }

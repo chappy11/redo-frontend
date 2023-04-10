@@ -11,10 +11,10 @@ export default function UserSellingOrder() {
       <ItemCard
         id={val.salvageorder_id}
         pic1={val.pic1}
-        name={val.deviceName}
+        name={val.fullname}
         ref_id={val.ref_id}
         brand={val.deviceBrand}
-        amount={val.salvage_amount}
+        amount={val.order_totalAmount}
         status={val.salvageorder_status}
       />
     ));
