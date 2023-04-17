@@ -20,7 +20,7 @@ export default function ItemCard(props: Props) {
         <div className=" flex w-full">
           <div className=" flex-1  ">
             <p className=" font-bold text-secondary mt-2">
-              PHP {convertMoney(order.order_totalAmount)}
+              PHP {convertMoney(order.total_amount)}
             </p>
           </div>
 

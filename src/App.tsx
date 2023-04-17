@@ -35,6 +35,10 @@ import RefubrishCart from "./pages/Auth/Cart/RefubrishCart";
 import PendingShop from "./pages/Admin/shop/PendingShop";
 import SalvageCart from "./pages/Auth/Cart/SalvageCart";
 import RefubrishCheckout from "./pages/Auth/Checkout/RefubrishCheckout";
+import RefubrishOrders from "./pages/Auth/RefubrishOrder/RefubrishOrders";
+import RefubrishOrderDetails from "./pages/Auth/RefubrishOrder/RefubrishOrders/RefubrishOrderDetails";
+import RefubrishTransaction from "./pages/Auth/RefubrishOrder/RefubrishTransaction";
+import RefubrishTransactionDetails from "./pages/Auth/RefubrishOrder/RefubrishTransaction/RefubrishTransactionDetails";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -156,6 +160,23 @@ function App() {
 
             {/* cart */}
             <Route path={RoutesPath.CART} element={displayCart} />
+
+            <Route
+              path={RoutesPath.REFUBRISH_ORDERS}
+              element={<RefubrishOrders />}
+            />
+            <Route
+              path={RoutesPath.REFUBRISH_ORDER + ":id"}
+              element={<RefubrishOrderDetails />}
+            />
+            <Route
+              path={RoutesPath.REFUBRISH_TRANSACTIONS}
+              element={<RefubrishTransaction />}
+            />
+            <Route
+              path={RoutesPath.REFUBRISH_TRANSACTION + ":id"}
+              element={<RefubrishTransactionDetails />}
+            />
             {adminRoutes}
           </>
         )}

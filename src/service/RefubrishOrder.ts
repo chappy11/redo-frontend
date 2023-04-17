@@ -29,3 +29,29 @@ export const refubrishstatus = async (payload: any) => {
 
   return resp;
 };
+
+export const getById = async (id: string) => {
+  const resp = await axios.get("refubrish_order/transaction/" + id);
+
+  return resp;
+};
+
+export const getItems = async (id: string) => {
+  const resp = await axios.get("refubrish_order/items/" + id);
+
+  return resp;
+};
+
+export const getPayment = async (ref_id: string) => {
+  const resp = await axios.get("refubrish_order/payment/" + ref_id);
+
+  return resp;
+};
+
+export const updateOrderStatus = async (payload: any) => {
+  const resp = await axios.post("refubrish_order/updatestatus", payload, {
+    headers,
+  });
+
+  return resp;
+};

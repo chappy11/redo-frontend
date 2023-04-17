@@ -12,6 +12,10 @@ export default function RepairShop(props: Props) {
     window.location.href = RoutesPath.REPUBRISH_ITEMS;
   }
 
+  function handleGoToOrders() {
+    window.location.href = RoutesPath.REFUBRISH_ORDERS;
+  }
+
   return (
     <div className=" m-auto w-1/2">
       <div className=" bg-white shadow-lg full">
@@ -31,8 +35,8 @@ export default function RepairShop(props: Props) {
           />
           <ServiceItem
             icon={<GoHistory />}
-            onClick={handleGoToRepubrish}
-            name="Transaction History"
+            onClick={handleGoToOrders}
+            name="Orders Items"
           />
           <ServiceItem
             icon={<GiShop />}

@@ -19,6 +19,7 @@ export default function Checkout() {
   const { data } = useGetActiveCart({ seller_id: id ?? "" });
   const { data: user, sendRequest: getUserInfo } = useGetUserInfo();
   const { data: currentUser } = useGetFromStorage();
+  const [courier, setCourier] = useState<string>("");
   const [shippingInfo, setShippingInfo] = useState({
     recieverName: "",
     address: "",
@@ -127,6 +128,22 @@ export default function Checkout() {
     window.location.href = RoutesPath.HOME;
   }
 
+  function handleOpenPayment() {
+    if (!shippingInfo.address) {
+      alertWarning("Please put your address");
+
+      return;
+    }
+
+    if (!courier) {
+      alertWarning("Please choose your delivery courier");
+
+      return;
+    }
+
+    setIsOpen(true);
+  }
+
   return (
     <PageContainer>
       <div className=" m-auto w-3/4 md:w-1/2">
@@ -171,6 +188,16 @@ export default function Checkout() {
             onChange={onChange}
           />
           <div className=" h-5" />
+          <select
+            className={`border-2 outline-none px-5 py-2 border-gray-300 text-gray-600 w-full rounded  focus:border-green-400`}
+            onChange={(e) => setCourier(e.target.value)}
+          >
+            <option value="">Choose your courier</option>
+            <option value="Maxim">Maxim</option>
+            <option value="Lalamove">Lalamove</option>
+          </select>
+
+          <div className=" h-5" />
           <div className=" w-full border-b-[0.5px] border-gray-300" />
           <div className=" h-5" />
           <p className=" text-right">
@@ -181,7 +208,7 @@ export default function Checkout() {
             </span>
           </p>
           <div className=" w-full md:w-fit lg:w-fit mt-5">
-            <Button isFull onClick={() => setIsOpen(true)}>
+            <Button isFull onClick={handleOpenPayment}>
               Checkout
             </Button>
           </div>

@@ -30,7 +30,10 @@ export enum RoutesPath {
   REPUBRISH_ITEMS_DETAILS = "/repubrishitems/",
   CREATE_REPUBRISH_ITEM = "/addrepubrish",
   REPUBRISH_VIEW_DETAILS = "/viewrefubrishdetails/",
-
+  REFUBRISH_ORDERS = "/refubrishorders",
+  REFUBRISH_ORDER = "/refubrishorderdetails/",
+  REFUBRISH_TRANSACTIONS = "/refubrishtransaction",
+  REFUBRISH_TRANSACTION = "/refubrishtransaction/",
   //Cart
   CART = "/cart",
 }

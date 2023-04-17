@@ -11,6 +11,7 @@ import useGetTransactionById from "../../../../hooks/salvageOrder/useGetTransact
 import useAlertOptions from "../../../../hooks/useAlertOptions";
 import { updateStatus } from "../../../../service/SalvageOrder";
 import {
+  BtnColor,
   ItemTransactionStatus,
   StatusColor,
 } from "../../../../types/ItemTransactionStatus.enum";
@@ -50,7 +51,7 @@ function UserSellingOrderDetails() {
     if (status === ItemTransactionStatus.PENDING) {
       return (
         <Button
-          backgroundColor={StatusColor.ACCEPTED}
+          backgroundColor={BtnColor.ACCEPTED}
           onClick={() => handleClick(ItemTransactionStatus.ACCEPTED)}
         >
           Accept Order
@@ -61,7 +62,7 @@ function UserSellingOrderDetails() {
     if (status === ItemTransactionStatus.ACCEPTED) {
       return (
         <Button
-          backgroundColor={StatusColor.DELIVERED}
+          backgroundColor={BtnColor.DELIVERED}
           onClick={() => handleClick(ItemTransactionStatus.DELIVERED)}
         >
           Ready For Delivery
@@ -72,7 +73,7 @@ function UserSellingOrderDetails() {
     if (status === ItemTransactionStatus.DELIVERED) {
       return (
         <Button
-          backgroundColor={StatusColor.SUCCESS}
+          backgroundColor={BtnColor.SUCCESS}
           onClick={() => handleClick(ItemTransactionStatus.SUCCESS)}
         >
           Deliver Ordered

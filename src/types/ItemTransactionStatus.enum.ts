@@ -13,3 +13,11 @@ export enum StatusColor {
   CANCELED = "text-red-600",
   SUCCESS = "text-green-600",
 }
+
+export enum BtnColor {
+  ACCEPTED = "bg-yellow-600",
+  PENDING = "bg-slate-600",
+  DELIVERED = "bg-orange-600",
+  CANCELED = "bg-red-600",
+  SUCCESS = "bg-green-600",
+}
