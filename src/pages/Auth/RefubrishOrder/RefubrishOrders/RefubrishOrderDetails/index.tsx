@@ -13,7 +13,6 @@ import useAlertOptions from "../../../../../hooks/useAlertOptions";
 import {
   BtnColor,
   ItemTransactionStatus,
-  StatusColor,
 } from "../../../../../types/ItemTransactionStatus.enum";
 
 import useGetRefubrishOrderItems from "../../../../../hooks/RefubrishOrder/useGetRefubrishOrderItems";
@@ -41,7 +40,7 @@ function UserSellingOrderDetails() {
 
   useEffect(() => {
     handlepayment(data.ref_id);
-  }, [data]);
+  }, [data, handlepayment]);
 
   async function handleClick(status: string) {
     try {

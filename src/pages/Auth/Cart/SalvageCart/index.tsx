@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Button, CartItem, PageContainer } from "../../../../components";
 import useGetSalvageCart from "../../../../hooks/salvageitem/useGetSalvageCart";
 import {
+  removeSalvageItem,
   salvageUpdateStatus,
   updateQuantity,
 } from "../../../../service/SalvageCart";
@@ -10,7 +11,7 @@ import { RoutesPath } from "../../../../types/RoutesPath.enum";
 
 export default function SalvageCart() {
   const { data, setRefetch } = useGetSalvageCart();
-  const { alertError, alertWarning } = useAlertOptions();
+  const { alertError, alertWarning, alertSuccess } = useAlertOptions();
 
   function countArray(data: any[]): string {
     return `No Items: ${data.length.toString()} `;
@@ -55,6 +56,19 @@ export default function SalvageCart() {
     }
   }
 
+  async function handleRemoveCart(cart_id: string) {
+    try {
+      const resp = await removeSalvageItem(cart_id);
+
+      if (resp.data.status === 1) {
+        alertSuccess(resp.data.message);
+        setRefetch(true);
+      }
+    } catch (error) {
+      alertError();
+    }
+  }
+
   function handleCheckout(sellerId: string, item: any[]) {
     const activeItems = item.filter((val) => val.scActive === "1");
 
@@ -67,10 +81,15 @@ export default function SalvageCart() {
     window.location.href = RoutesPath.CHECKOUT + sellerId;
   }
 
+  const noData = useMemo(() => {
+    if (data.length < 1) {
+      return <p className=" text-center mt-20">No Item On Cart</p>;
+    }
+  }, [data]);
   return (
     <PageContainer>
       <div className=" m-auto w-1/2">
-        <h1>Salvage Cart</h1>
+        <h1 className=" text-xl font-bold text-primary">Salvage Cart</h1>
         <div className=" mx-5" />
         {data.map((item, i) => (
           <div key={item.seller_id}>
@@ -103,6 +122,7 @@ export default function SalvageCart() {
                   handleStatus={() =>
                     updateStatus(val.salvagecart_id, val.scActive)
                   }
+                  handleRemove={() => handleRemoveCart(val.salvagecart_id)}
                   handleIncrement={() =>
                     handleUpdateQuantity(val.salvagecart_id, "increment")
                   }
@@ -114,6 +134,7 @@ export default function SalvageCart() {
             })}
           </div>
         ))}
+        {noData}
       </div>
     </PageContainer>
   );

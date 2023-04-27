@@ -26,3 +26,17 @@ export const getAllSalvageItem = async () => {
 
   return resp;
 };
+
+export const updateSalvage = async (payload: any) => {
+  const resp = await axios.post("salvage_item/updateItems", payload, {
+    headers,
+  });
+
+  return resp;
+};
+
+export const removeSalvage = async (salvageItem_id: string) => {
+  const resp = await axios.get(`salvage_item/remove/${salvageItem_id}`);
+
+  return resp;
+};

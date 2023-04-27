@@ -71,7 +71,7 @@ export default function ViewDetails() {
   return (
     <PageContainer>
       <div className=" m-auto w-1/2 md:w-3/4 lg:w-3/4">
-        <h1 className=" text-xl font-bold mb-5">Device Details</h1>
+        <h1 className=" text-xl font-bold mb-5">Refurbrish Device Details</h1>
         <div className=" bg-white p-5 w-full shadow-lg">
           <div className=" flex flex-col md:flex-row lg:flex-row">
             <div className=" flex-1 flex justify-center">

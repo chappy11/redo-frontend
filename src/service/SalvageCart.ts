@@ -40,3 +40,9 @@ export const getSalvageActiveCart = async (
 
   return resp;
 };
+
+export const removeSalvageItem = async (cart_id: string) => {
+  const resp = await axios.get(`salvage_cart/remove/${cart_id}`);
+
+  return resp;
+};

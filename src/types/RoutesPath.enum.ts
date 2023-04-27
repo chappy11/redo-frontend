@@ -7,6 +7,7 @@ export enum RoutesPath {
   SALVAGE_ITEM = "/salvageitem",
   ADD_SALVAGE_ITEM = "/addsalvageitem",
   SALVAGE_ITEM_DETAILS = "/salvageitemdetails/",
+  UPDATE_SALVAGE_DETAILS = "/updatesalvage/",
   USER_SELLING_TRANSACTION = "/items_transaction",
   USER_SELLING_TRANSACTION_DETAILS = "/items_transaction/",
 
@@ -34,6 +35,7 @@ export enum RoutesPath {
   REFUBRISH_ORDER = "/refubrishorderdetails/",
   REFUBRISH_TRANSACTIONS = "/refubrishtransaction",
   REFUBRISH_TRANSACTION = "/refubrishtransaction/",
+  UPDATE_REFURBRISH = "/updaterefurbrish/",
   //Cart
   CART = "/cart",
 }

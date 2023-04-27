@@ -23,6 +23,7 @@ export default function SalvageItem() {
         brand={val.deviceBrand}
         type={val.deviceType}
         isSold={val.isSold === "1"}
+        stock={val.squantity}
       />
     ));
   }, [salvageitem]);

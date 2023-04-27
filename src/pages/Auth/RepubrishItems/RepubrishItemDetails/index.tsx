@@ -8,11 +8,13 @@ import {
   PageContainer,
   TextInput,
 } from "../../../../components";
-import { getItem } from "../../../../service/RepubrishItem";
+import { getItem, removeRefurbrish } from "../../../../service/RepubrishItem";
 import Modal from "../../../../components/Modal";
 import useAlertOptions from "../../../../hooks/useAlertOptions";
 import { createFix } from "../../../../service/RefubrishFix";
 import { convertMoney } from "../../../../utils/money.utils";
+import { RoutesPath } from "../../../../types/RoutesPath.enum";
+import { AlertIcon } from "../../../../types/AlertIcon.enum";
 
 export default function RepubrishItemDetails() {
   const { id } = useParams();
@@ -22,7 +24,8 @@ export default function RepubrishItemDetails() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [fix, setFix] = useState<string>("");
   const [amount, setAmount] = useState<string>("0.00");
-  const { alertError, alertSuccess, alertWarning } = useAlertOptions();
+  const { alertError, alertSuccess, alertWarning, alertWithAction } =
+    useAlertOptions();
   const [total, setTotal] = useState<string>("0.00");
 
   const getData = useCallback(async () => {
@@ -80,6 +83,42 @@ export default function RepubrishItemDetails() {
     }
   }
 
+  const displayQuantity = useMemo(() => {
+    if (data?.rquantity < 1) {
+      return "Out of Stock";
+    }
+
+    if (data?.rquantity < 2) {
+      return `${data?.rquantity} pc`;
+    }
+
+    return `${data?.rquantity} pcs`;
+  }, [data?.rquantity]);
+
+  function handeUpdate() {
+    window.location.href =
+      RoutesPath.UPDATE_REFURBRISH + data?.repubrishItem_id;
+  }
+
+  async function handleDelete() {
+    try {
+      const resp = await removeRefurbrish(data?.repubrishItem_id);
+
+      if (resp.data.status === 1) {
+        alertWithAction({
+          title: "Successfully",
+          text: resp.data.message,
+          icon: AlertIcon.SUCCESS,
+          onConfirm: () => (window.location.href = RoutesPath.REPUBRISH_ITEMS),
+        });
+        return;
+      }
+
+      alertError();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <PageContainer>
       <div className=" w-3/4 md:w-1/2 lg:w-1/2 m-auto">
@@ -102,8 +141,15 @@ export default function RepubrishItemDetails() {
             <Item label="Device Type" value={data?.rdevice_type} />
             <Item label="Device Brand" value={data?.rdeviceBrand} />
             <Item label="Salvage Value" value={data?.rsalvage_price} />
+            <Item label="Stock" value={displayQuantity} />
             <Item label="Total Fix" value={convertMoney(totalFix.toString())} />
             <Item label="Total Selling Price" value={data?.selling_price} />
+            <div className=" flex space-x-2">
+              <Button onClick={handeUpdate}>Update Details</Button>
+              <Button backgroundColor="bg-red-500" onClick={handleDelete}>
+                Delete
+              </Button>
+            </div>
 
             <div className=" h-5" />
 

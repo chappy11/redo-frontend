@@ -14,4 +14,5 @@ export type UserInfo = {
   shopAddress?: string;
   isPending?: string;
   shopIsActive?: string;
+  address?: string;
 };

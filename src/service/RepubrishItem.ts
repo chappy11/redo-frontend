@@ -27,3 +27,15 @@ export async function getAll() {
 
   return resp;
 }
+
+export async function updateRefurbrish(payload: any) {
+  const resp = await axios.post("repubrishitem/update", payload, { headers });
+
+  return resp;
+}
+
+export async function removeRefurbrish(itemId: string) {
+  const resp = await axios.get(`repubrishitem/remove/${itemId}`);
+
+  return resp;
+}

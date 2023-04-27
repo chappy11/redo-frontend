@@ -100,6 +100,7 @@ export default function RefubrishCart() {
                   handleDecrement={() =>
                     handleupdatequantity(val.rcart_id, "decrement")
                   }
+                  handleRemove={() => {}}
                 />
               );
             })}

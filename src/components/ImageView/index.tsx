@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BASE_URL } from "../../constant/config";
 
 type Props = {
@@ -16,12 +16,28 @@ export default function ImageView(props: Props) {
   }, [pic1]);
 
   function changeSelectedPic(picture: string) {
+    if (picture === "") {
+      return;
+    }
+
     setSelectedPic(picture);
   }
 
+  const isSecondPictureExist = useMemo(() => {
+    if (pic2) {
+      return <img src={BASE_URL + pic2} className=" w-16 h-28" alt="pic2" />;
+    }
+  }, [pic2]);
+
+  const isThirdPictureExist = useMemo(() => {
+    if (pic3) {
+      return <img src={BASE_URL + pic3} className=" w-16 h-28" alt="pic3" />;
+    }
+  }, [pic3]);
+
   return (
     <div className=" p-4 m-auto md:m-0 lg:m-0">
-      <img src={BASE_URL + selectedPic} alt="Main Pic" className=" w-80" />
+      <img src={BASE_URL + selectedPic} alt="Main Pic" className=" w-80 h-80" />
       <div className=" h-2" />
       <div className=" flex">
         <div
@@ -32,15 +48,15 @@ export default function ImageView(props: Props) {
         </div>
         <div
           onClick={() => changeSelectedPic(pic2)}
-          className=" flex-1 flex justify-center items-center hover:bg-slate-500"
+          className=" flex-1 flex justify-center items-center hover:bg-slate-500  bg-slate-300 mx-2"
         >
-          <img src={BASE_URL + pic2} className=" w-16 h-28" alt="pic2" />
+          {isSecondPictureExist}
         </div>
         <div
           onClick={() => changeSelectedPic(pic3)}
-          className=" flex-1 flex justify-center items-center hover:bg-slate-500"
+          className=" flex-1 flex justify-center items-center hover:bg-slate-500 bg-slate-300 mx-2"
         >
-          <img src={BASE_URL + pic3} className=" w-16 h-28" alt="pic3" />
+          {isThirdPictureExist}
         </div>
       </div>
     </div>

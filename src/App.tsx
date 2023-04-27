@@ -39,6 +39,8 @@ import RefubrishOrders from "./pages/Auth/RefubrishOrder/RefubrishOrders";
 import RefubrishOrderDetails from "./pages/Auth/RefubrishOrder/RefubrishOrders/RefubrishOrderDetails";
 import RefubrishTransaction from "./pages/Auth/RefubrishOrder/RefubrishTransaction";
 import RefubrishTransactionDetails from "./pages/Auth/RefubrishOrder/RefubrishTransaction/RefubrishTransactionDetails";
+import UpdateSalvageDetails from "./pages/Auth/SalvageItem/UpdateSalvageDetails";
+import UpdateRefurbrish from "./pages/Auth/RepubrishItems/UpdateRefurbrish";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -116,6 +118,10 @@ function App() {
               element={<ShopSalvageTransactions />}
             />
             <Route
+              path={RoutesPath.UPDATE_SALVAGE_DETAILS + ":id"}
+              element={<UpdateSalvageDetails />}
+            />
+            <Route
               path={RoutesPath.SALVAGE_TRANSACTIONS_DETAILS + ":id"}
               element={<TrackSalvageTransactions />}
             />
@@ -176,6 +182,10 @@ function App() {
             <Route
               path={RoutesPath.REFUBRISH_TRANSACTION + ":id"}
               element={<RefubrishTransactionDetails />}
+            />
+            <Route
+              path={RoutesPath.UPDATE_REFURBRISH + ":id"}
+              element={<UpdateRefurbrish />}
             />
             {adminRoutes}
           </>

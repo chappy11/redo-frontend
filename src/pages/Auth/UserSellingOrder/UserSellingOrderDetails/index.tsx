@@ -1,11 +1,13 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Button,
   ImageView,
+  Modal,
   OrderItem,
   PageContainer,
   PaymentList,
+  TextInput,
 } from "../../../../components";
 import useGetTransactionById from "../../../../hooks/salvageOrder/useGetTransactionById";
 import useAlertOptions from "../../../../hooks/useAlertOptions";
@@ -22,7 +24,8 @@ function UserSellingOrderDetails() {
     trans_id: id ? id : "",
   });
   const { alertSuccess } = useAlertOptions();
-
+  const [courierRef, setCourierRef] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   async function handleClick(status: string) {
     try {
       if (!id) {
@@ -37,11 +40,16 @@ function UserSellingOrderDetails() {
       if (resp) {
         alertSuccess("Successfully Updated");
         sendRequest();
+        setIsOpen(false);
         return;
       }
     } catch (e) {
       console.log(e);
     }
+  }
+
+  function handleOpenModal() {
+    setIsOpen(true);
   }
 
   const displayButton = useMemo(() => {
@@ -63,7 +71,7 @@ function UserSellingOrderDetails() {
       return (
         <Button
           backgroundColor={BtnColor.DELIVERED}
-          onClick={() => handleClick(ItemTransactionStatus.DELIVERED)}
+          onClick={() => handleOpenModal()}
         >
           Ready For Delivery
         </Button>
@@ -87,6 +95,19 @@ function UserSellingOrderDetails() {
       <div className=" w-3/4 m-auto">
         <h1>Transaction Details</h1>
         <div className=" h-5" />
+        <Modal
+          showModal={isOpen}
+          setShowModal={setIsOpen}
+          onConfirm={() => handleClick(ItemTransactionStatus.DELIVERED)}
+          onCancel={() => setIsOpen(false)}
+          header="Enter courier Reference"
+        >
+          <label>{data?.courier} Tracking NO</label>
+          <TextInput
+            type="text"
+            onChange={(e) => setCourierRef(e.target.value)}
+          />
+        </Modal>
         <div className=" bg-white p-4">
           <OrderItem id={data?.salvageorder_id} />
           <h1 className=" font-bold">{data?.deviceName}</h1>

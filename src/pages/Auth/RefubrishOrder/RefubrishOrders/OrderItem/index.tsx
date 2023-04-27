@@ -32,7 +32,7 @@ export default function OrderItem(props: Props) {
 
   const getTotal = (quantity: string, price: string) => {
     return parseInt(quantity) * parseFloat(price);
-  };
+  };    
   const displayData = useMemo(() => {
     return data.map((val, i) => (
       <tr>

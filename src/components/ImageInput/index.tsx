@@ -18,6 +18,7 @@ export default function ImageInput(
         type="file"
         className=" opacity-0 h-full w-full z-10"
         placeholder=""
+        disabled={props?.disabled}
         onChange={props.onChange}
       />
     </div>

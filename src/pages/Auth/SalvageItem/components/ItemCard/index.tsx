@@ -15,6 +15,7 @@ type Props = {
   datePosted: string;
   price: string;
   isSold: boolean;
+  stock: number;
 };
 
 export default function ItemCard(props: Props) {
@@ -27,15 +28,24 @@ export default function ItemCard(props: Props) {
     datePosted,
     price,
     isSold,
+    stock,
   } = props;
 
   const status = useMemo(() => {
-    if (isSold) {
+    if (stock < 1) {
       return <span className=" text-green-600">Sold</span>;
     }
 
-    return <span className=" text-red-600">Available</span>;
-  }, [isSold]);
+    return <span className=" text-green-600">Available</span>;
+  }, [stock]);
+
+  const diplayStock = useMemo(() => {
+    if (stock < 1) {
+      return <p>Out Of Stock</p>;
+    }
+
+    return <p>{stock} pcs/pc available</p>;
+  }, [stock]);
 
   return (
     <div className=" w-full bg-white rounded-xl flex shadow-lg p-5 flex-col md:flex-row my-5">
@@ -49,8 +59,10 @@ export default function ItemCard(props: Props) {
           {name}
         </h1>
         <h3 className=" text-center  md:text-left lg:text-left">{brand}</h3>
+        {diplayStock}
         <div className=" h-3 " />
-        <p className=" font-semibold text-center md:text-left lg:text-left">
+
+        <p className=" font-semibold text-center text-red-400 md:text-left lg:text-left">
           PHP {convertMoney(price)}
         </p>
         <div className=" collapse md:visible lg:visible">

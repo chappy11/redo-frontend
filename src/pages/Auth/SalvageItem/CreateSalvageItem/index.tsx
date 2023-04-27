@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   PageContainer,
@@ -49,17 +49,17 @@ export default function CreateSalvageItem() {
     }
   };
 
-  const onChangePic2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePic2 = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setPic2(e.target.files[0]);
     }
-  };
+  }, []);
 
-  const onChangePic3 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePic3 = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setPic3(e.target.files[0]);
     }
-  };
+  }, []);
 
   const displayFirstPic = useMemo(() => {
     if (pic1) {
@@ -86,8 +86,8 @@ export default function CreateSalvageItem() {
       );
     }
 
-    return <ImageInput onChange={onChangePic2} />;
-  }, [pic2]);
+    return <ImageInput onChange={onChangePic2} disabled={!pic1} />;
+  }, [pic2, onChangePic2, pic1]);
 
   const displayThirdPic = useMemo(() => {
     if (pic3) {
@@ -100,8 +100,8 @@ export default function CreateSalvageItem() {
       );
     }
 
-    return <ImageInput onChange={onChangePic3} />;
-  }, [pic3]);
+    return <ImageInput onChange={onChangePic3} disabled={!pic2} />;
+  }, [onChangePic3, pic2, pic3]);
   const displaySelect = useMemo(() => {
     return brands?.map((val, i) => (
       <>
@@ -124,14 +124,20 @@ export default function CreateSalvageItem() {
 
   async function handleSubmit() {
     try {
-      if (!pic1 || !pic2 || !pic3) {
-        alertWarning("3 picture si required");
+      if (!pic1) {
+        alertWarning("Please put atleast one picture");
 
         return;
       }
 
       if (!deviceInfo.name) {
         alertWarning("Device Name is Required");
+
+        return;
+      }
+
+      if (!brands) {
+        alertWarning("Device Brand is Required");
 
         return;
       }
@@ -190,8 +196,14 @@ export default function CreateSalvageItem() {
       formdata.append("salvageLevel", salvageLevel);
       formdata.append("price", salvagePrice.toString());
       formdata.append("pic1", pic1);
-      formdata.append("pic2", pic2);
-      formdata.append("pic3", pic3);
+      if (pic2) {
+        formdata.append("pic2", pic2);
+      }
+
+      if (pic3) {
+        formdata.append("pic3", pic3);
+      }
+
       formdata.append("quantity", deviceInfo.quantity.toString());
 
       const resp = await createSalvage(formdata);
@@ -203,7 +215,7 @@ export default function CreateSalvageItem() {
       }
 
       alertWithAction({
-        title: "Successful",
+        title: "Successfull",
         text: "Successfully Added",
         icon: AlertIcon.SUCCESS,
         onConfirm: () => (window.location.href = RoutesPath.SALVAGE_ITEM),
@@ -245,10 +257,12 @@ export default function CreateSalvageItem() {
     deviceInfo.numberOfYears,
     salvagePrice,
   ]);
+
   return (
     <PageContainer>
       <div className="  w-full flex  justify-center mb-10">
         <Card>
+          <h1 className=" font-bold text-2xl my-3">Create Salvage Item</h1>
           <div className=" flex flex-col-reverse md:flex-col lg:flex-col">
             <div className=" flex flex-col md:flex-row justify-center items-center  w-full gap-4">
               {displayFirstPic}
@@ -269,14 +283,12 @@ export default function CreateSalvageItem() {
                 {displayType}
               </select>
               <div className=" h-3" />
-              <select
-                className={`border-2 outline-none px-5 py-2 border-gray-300 text-gray-600 w-full rounded  focus:border-green-400`}
+              <TextInput
+                type="text"
+                placeholder="Phone Brand"
                 onChange={(e) => setSelectedBrand(e.target.value)}
                 value={selectedBrand}
-              >
-                <option value="">Please Choose Brand</option>
-                {displaySelect}
-              </select>
+              />
               <div className=" h-3" />
               <TextInput
                 placeholder="Purchase Price"
@@ -297,7 +309,7 @@ export default function CreateSalvageItem() {
                 className={`border-2 outline-none px-5 py-2 border-gray-300 text-gray-600 w-full rounded  focus:border-green-400`}
                 onChange={(e) => setSalvageLevel(e.target.value)}
               >
-                <option value="">Salvage Level</option>
+                <option value="">Device Condition</option>
                 <option value="4">Highly Broken</option>
                 <option value="3">Mid Broken</option>
                 <option value="2">Low Broken</option>
