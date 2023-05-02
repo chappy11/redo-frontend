@@ -10,7 +10,6 @@ export default function UserSellingOrder() {
     return data.map((val, i) => (
       <ItemCard
         id={val.salvageorder_id}
-        pic1={val.pic1}
         name={val.fullname}
         ref_id={val.ref_id}
         brand={val.deviceBrand}

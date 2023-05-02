@@ -52,6 +52,10 @@ export default function LoginPage() {
     handleRequest();
   }
 
+  function handleForgotPassword() {
+    window.location.href = RoutesPath.FORGOT_PASSWORD;
+  }
+
   return (
     <div className=" w-full h-full flex background justify-center items-center">
       <div className=" bg-white w-3/4 p-5 bg-opacity-90 md:w-1/4 lg:w-1/4">
@@ -73,7 +77,12 @@ export default function LoginPage() {
           type="password"
         />
         <div className=" h-3" />
-        <p className=" text-gray-600 text-right p-2 mb-3">Forgot Password ?</p>
+        <p
+          className=" text-gray-600 text-right p-2 mb-3 hover:text-blue-600 cursor-pointer"
+          onClick={handleForgotPassword}
+        >
+          Forgot Password ?
+        </p>
         <Button isrounded={true} isFull={true} onClick={handleLogin}>
           Login
         </Button>

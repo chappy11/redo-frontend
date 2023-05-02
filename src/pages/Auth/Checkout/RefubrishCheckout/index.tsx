@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Button,
+  Item,
   Modal,
   PageContainer,
   TextInput,
@@ -27,16 +28,8 @@ export default function RefubrishCheckout() {
   const { data: user, sendRequest: getUserInfo } = useGetUserInfo();
   const { data: currentUser } = useGetFromStorage();
   const [courier, setCourier] = useState<string>("");
-  const [shippingInfo, setShippingInfo] = useState({
-    recieverName: "",
-    address: "",
-    mobileNumber: "",
-  });
-  const { alertWarning, alertError, alertWithAction } = useAlertOptions();
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
-  };
+  const { alertWarning, alertError, alertWithAction } = useAlertOptions();
 
   const total = useMemo(() => {
     let total: number = 0;
@@ -51,20 +44,12 @@ export default function RefubrishCheckout() {
 
   async function checkout() {
     try {
-      const name = shippingInfo.recieverName
-        ? shippingInfo?.recieverName
-        : currentUser?.fullname;
-
-      const mobile = shippingInfo.mobileNumber
-        ? shippingInfo.mobileNumber
-        : currentUser?.phoneNumber;
-
       const payload = {
         user_id: currentUser?.user_id,
         amount: total,
-        recieverName: name,
-        address: shippingInfo.address,
-        mobile: mobile,
+        recieverName: currentUser?.fullname,
+        address: currentUser?.address,
+        mobile: currentUser?.phoneNumber,
         seller_id: data[0].seller_id,
         courier,
       };
@@ -115,12 +100,6 @@ export default function RefubrishCheckout() {
   }
 
   function handleOpenPayment() {
-    if (!shippingInfo.address) {
-      alertWarning("Please put your address");
-
-      return;
-    }
-
     if (!courier) {
       alertWarning("Please choose you delivery Courier");
       return;
@@ -151,26 +130,20 @@ export default function RefubrishCheckout() {
         <div className=" bg-white p-5 shadow-lg rounded-lg">
           {orderitem}
           <div className=" h-5" />
-          <div className=" w-full border-b-[0.5px] border-gray-300" />
           <div className=" h-5" />
           <h1 className=" font-bold">Shipping Info</h1>
           <div className=" h-5" />
-          <TextInput
-            placeholder={currentUser?.fullname}
-            name="recieverName"
-            onChange={onChange}
+          <Item
+            label={"Reciever Name"}
+            value={currentUser?.fullname ? currentUser?.fullname : ""}
           />
-          <div className=" h-5" />
-          <TextInput
-            placeholder={currentUser?.phoneNumber}
-            name="mobileNumber"
-            onChange={onChange}
+          <Item
+            label={"Mobile Number"}
+            value={currentUser?.phoneNumber ? currentUser?.phoneNumber : ""}
           />
-          <div className=" h-5" />
-          <TextInput
-            placeholder="Shipping Address"
-            name="address"
-            onChange={onChange}
+          <Item
+            label={"Shipping Address"}
+            value={currentUser?.address ? currentUser?.address : ""}
           />
           <div className=" h-5" />
           <select
@@ -181,6 +154,7 @@ export default function RefubrishCheckout() {
             <option value="Maxim">Maxim</option>
             <option value="Lalamove">Lalamove</option>
           </select>
+          <div className=" h-5" />
           <div className=" w-full border-b-[0.5px] border-gray-300" />
           <div className=" h-5" />
           <p className=" text-right">

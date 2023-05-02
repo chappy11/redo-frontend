@@ -12,6 +12,7 @@ export default function RegisterComponent() {
     fullName: "",
     email: "",
     phoneNumber: "",
+    address: "",
     password: "",
     confirmPassword: "",
   });
@@ -23,6 +24,52 @@ export default function RegisterComponent() {
 
   async function handleRegister() {
     try {
+      const mobileRegex = /^(09|\+639)\d{9}$/;
+      const emailRegex =
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if (!user.fullName) {
+        alertError("Fullname is Required");
+
+        return;
+      }
+
+      if (!user.email) {
+        alertError("Email is Required");
+
+        return;
+      }
+
+      if (!user.email.match(emailRegex)) {
+        alertError("Email is Invalid");
+
+        return;
+      }
+
+      if (!user.phoneNumber) {
+        alertError("Phone Number is Required");
+
+        return;
+      }
+
+      if (!user.phoneNumber.match(mobileRegex)) {
+        alertError("Invalid Mobile Number");
+
+        return;
+      }
+
+      if (!user.address) {
+        alertError("Address is Required");
+
+        return;
+      }
+
+      if (!user.password) {
+        alertError("Password is Required");
+
+        return;
+      }
+
       if (user.password != user.confirmPassword) {
         alertError("Password do not match");
         return;
@@ -31,6 +78,7 @@ export default function RegisterComponent() {
       const payload = {
         fullname: user.fullName,
         email: user.email,
+        address: user.address,
         phone: user.phoneNumber,
         password: user.password,
       };
@@ -77,6 +125,13 @@ export default function RegisterComponent() {
           placeholder="Phone Number"
           isRounded
           name="phoneNumber"
+          onChange={onChange}
+        />
+        <div className=" h-4" />
+        <TextInput
+          placeholder="Address"
+          isRounded
+          name="address"
           onChange={onChange}
         />
         <div className=" h-4" />

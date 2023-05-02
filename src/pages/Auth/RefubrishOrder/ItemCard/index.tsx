@@ -28,11 +28,16 @@ export default function ItemCard(props: Props) {
       return StatusColor.DELIVERED;
     }
 
+    if (order.refubrishorder_status === ItemTransactionStatus.SUCCESS) {
+      return StatusColor.SUCCESS;
+    }
+
     if (order.refubrishorder_status === ItemTransactionStatus.CANCELED) {
       return StatusColor.CANCELED;
     }
   }, [order.refubrishorder_status]);
 
+  console.log("Color", color);
   return (
     <div className=" bg-white flex shadow-lg rounded-md my-5">
       <img

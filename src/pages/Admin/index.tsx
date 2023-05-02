@@ -1,35 +1,57 @@
 import React from "react";
-import Table from "../../components/Table";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
 import Card from "./components/Card";
 import Container from "./components/Container";
-import SideBar from "./components/SideBar";
 
-const MOCK = [
-  {
-    fullname: "GG",
-    email: "dsf",
-  },
-  {
-    fullname: "GG",
-    email: "dsf",
-  },
-  {
-    fullname: "GG",
-    email: "dsf",
-  },
-  {
-    fullname: "GG",
-    email: "dsf",
-  },
-  {
-    fullname: "GG",
-    email: "dsf",
-  },
-];
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const headers = ["Fullname", "Email"];
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Chart.js Bar Chart",
+    },
+  },
+};
 
-const keys = ["fullname", "email"];
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
+
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: "Dataset 1",
+      data: [21, 12, 23, 324, 435, 234, 234, 23],
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      label: "Dataset 2",
+      data: [21, 12, 23, 324, 435, 234, 234, 23],
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
+    },
+  ],
+};
 
 export default function Admin() {
   return (
@@ -40,7 +62,7 @@ export default function Admin() {
           <div className=" h-5" />
           <Card>
             <p>Dasboard</p>
-            {/* <Table header={headers} keys={keys} data={MOCK} /> */}
+            <Bar options={options} data={data} />;
           </Card>
         </div>
       </Container>

@@ -2,7 +2,10 @@ export enum RoutesPath {
   HOME = "/",
   LOGIN = "/login",
   REGISTER = "/register",
+  FORGOT_PASSWORD = "/forgotpassword",
+
   DASHBOARD = "/",
+  PROFILE = "/profile",
   //SALVAGE ITEM
   SALVAGE_ITEM = "/salvageitem",
   ADD_SALVAGE_ITEM = "/addsalvageitem",
@@ -38,4 +41,5 @@ export enum RoutesPath {
   UPDATE_REFURBRISH = "/updaterefurbrish/",
   //Cart
   CART = "/cart",
+  HISTORY = "/transaction_history",
 }

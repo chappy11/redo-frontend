@@ -41,6 +41,9 @@ import RefubrishTransaction from "./pages/Auth/RefubrishOrder/RefubrishTransacti
 import RefubrishTransactionDetails from "./pages/Auth/RefubrishOrder/RefubrishTransaction/RefubrishTransactionDetails";
 import UpdateSalvageDetails from "./pages/Auth/SalvageItem/UpdateSalvageDetails";
 import UpdateRefurbrish from "./pages/Auth/RepubrishItems/UpdateRefurbrish";
+import ForgotPassword from "./pages/UnAuth/ForgotPassword";
+import Profile from "./pages/Profile";
+import History from "./pages/Auth/History";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -94,10 +97,15 @@ function App() {
             <Route path={RoutesPath.HOME} element={<Home />} />
             <Route path={RoutesPath.LOGIN} element={<Login />} />
             <Route path={RoutesPath.REGISTER} element={<Register />} />
+            <Route
+              path={RoutesPath.FORGOT_PASSWORD}
+              element={<ForgotPassword />}
+            />
           </>
         ) : (
           <>
             <Route path={RoutesPath.DASHBOARD} element={displayDashboard} />
+            <Route path={RoutesPath.PROFILE} element={<Profile />} />
             <Route
               path={RoutesPath.SELL_REPUBRISHED}
               element={<CreateSalvageItem />}
@@ -141,6 +149,7 @@ function App() {
               path={RoutesPath.TRANSACTION_HISTORY}
               element={<TransactionHistory />}
             />
+            <Route path={RoutesPath.HISTORY} element={<History />} />
             <Route
               path={RoutesPath.TRANSACTION_DETAILS + ":id"}
               element={<SellingTransactionDetails />}

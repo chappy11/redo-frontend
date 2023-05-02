@@ -2,6 +2,7 @@ import React from "react";
 import { NavItemLinksTypes } from "../../../types/NavigationTypes.type";
 import { UserInfo } from "../../../types/User.type";
 import NavDropDownLinks from "./NavDropDownLinks";
+import { RoutesPath } from "../../../types/RoutesPath.enum";
 
 type Props = NavItemLinksTypes & {
   user: UserInfo | null;
@@ -14,9 +15,9 @@ export default function NavDropDown(props: Props) {
     "
     >
       <NavDropDownLinks
-        onClick={() => null}
+        onClick={() => (window.location.href = RoutesPath.PROFILE)}
         name={props.user ? props.user.fullname : ""}
-        url=""
+        url={RoutesPath.PROFILE}
       />
       {props.links.map((val) => (
         <>

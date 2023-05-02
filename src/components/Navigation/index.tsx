@@ -37,30 +37,26 @@ const AUTHLINK: NavItemTypes[] = [
     onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
-    name: "Notification",
-    url: RoutesPath.HOME,
-    onClick: () => (window.location.href = RoutesPath.HOME),
-  },
-  {
-    name: "View Profile",
-    url: RoutesPath.LOGIN,
-    onClick: () => (window.location.href = RoutesPath.HOME),
-  },
-  {
-    name: "My Salvage Items",
+    name: "Salvage Items",
     url: RoutesPath.SHOPS,
     onClick: () => (window.location.href = RoutesPath.SALVAGE_ITEM),
   },
   {
-    name: "My Shops",
+    name: "My Repair Shop",
     url: RoutesPath.SHOPS,
     onClick: () => (window.location.href = RoutesPath.SHOPS),
   },
   {
-    name: "Selling",
+    name: "On Going Transaction",
     url: RoutesPath.USER_SELLING_TRANSACTION,
     onClick: () => (window.location.href = RoutesPath.USER_SELLING_TRANSACTION),
   },
+  {
+    name: "Sales Report",
+    url: RoutesPath.HISTORY,
+    onClick: () => (window.location.href = RoutesPath.HISTORY),
+  },
+
   {
     name: "My Purchases",
     url: "/",
@@ -103,6 +99,11 @@ const SELLER: NavItemTypes[] = [
     name: "My Shop",
     url: RoutesPath.SHOPS,
     onClick: () => (window.location.href = RoutesPath.SHOPS),
+  },
+  {
+    name: "Sales Report",
+    url: RoutesPath.SHOPS,
+    onClick: () => (window.location.href = RoutesPath.HISTORY),
   },
   {
     name: "My Purchases",

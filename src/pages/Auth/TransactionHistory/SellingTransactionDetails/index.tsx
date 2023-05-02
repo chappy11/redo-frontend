@@ -37,7 +37,7 @@ export default function SellingTransactionDetails() {
           </div>
           <div className=" w-full">
             <h1 className=" font-bold text-xl">{data?.deviceName}</h1>
-            <p className=" text-sm">{data.deviceBrand}</p>
+            <p className=" text-sm">{data?.deviceBrand}</p>
             <div className=" w-full mt-5">
               <Item
                 label="Purchase Price"

@@ -112,7 +112,6 @@ function UserSellingOrderDetails() {
           <OrderItem id={data?.salvageorder_id} />
           <h1 className=" font-bold">{data?.deviceName}</h1>
           <p className=" my-2">Transaction No. : {data?.ref_id}</p>
-          <p className=" my-2">Brand : {data?.deviceBrand}</p>
           <p className=" my-2">Reciever Name: {data?.salvage_recievername}</p>
           <p className=" my-2">Mobile Number: {data?.salvage_recieverMobile}</p>
           <p className=" my-2">

@@ -50,6 +50,46 @@ const approved = async (user_id: string) => {
 
   return resp;
 };
+
+const emailVerification = async (payload: any) => {
+  const headers = {
+    "Content-Type": "text/plain",
+  };
+  const resp = await axios.post("email/sendEmail", payload, { headers });
+
+  return resp;
+};
+
+const changePassword = async (payload: any) => {
+  const headers = {
+    "Content-Type": "text/plain",
+  };
+
+  const resp = await axios.post("user/changepass", payload, { headers });
+
+  return resp;
+};
+
+const updateUser = async (payload: any) => {
+  const headers = {
+    "Content-Type": "multipart/form-data",
+  };
+
+  const resp = await axios.post("user/updateuser", payload, { headers });
+
+  return resp;
+};
+
+const updatestatus = async (payload: any) => {
+  const headers = {
+    "Content-Type": "text/plain",
+  };
+
+  const resp = await axios.post("user/updatestatus", payload, { headers });
+
+  return resp;
+};
+
 export {
   login,
   register,
@@ -58,4 +98,8 @@ export {
   allUser,
   getpendingshop,
   approved,
+  emailVerification,
+  changePassword,
+  updateUser,
+  updatestatus,
 };

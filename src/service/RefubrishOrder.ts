@@ -55,3 +55,9 @@ export const updateOrderStatus = async (payload: any) => {
 
   return resp;
 };
+
+export const getSuccessOrder = async (user_id: string) => {
+  const resp = await axios.get("refubrish_order/success/" + user_id);
+
+  return resp;
+};

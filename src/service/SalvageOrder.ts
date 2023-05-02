@@ -28,6 +28,12 @@ export const getAllOrdersForSeller = async (user_id: string) => {
   return resp;
 };
 
+export const getSuccessTransactions = async (user_id: string) => {
+  const resp = await axios.get("salvage_order/successtransactions/" + user_id);
+
+  return resp;
+};
+
 export const updateStatus = async (payload: any) => {
   const resp = await axios.post("salvage_order/updatestatus", payload, {
     headers: { "Content-Type": "text/plain" },
