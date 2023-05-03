@@ -5,3 +5,7 @@ dayjs.extend(customParseFormat);
 export const dateFormat = (date: string) => {
   return dayjs(date).format("MM/DD/YYYY");
 };
+
+export const getMonth = (date: string) => {
+  return dayjs(date).month();
+};

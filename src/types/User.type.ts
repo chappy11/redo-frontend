@@ -15,4 +15,5 @@ export type UserInfo = {
   isPending?: string;
   shopIsActive?: string;
   address?: string;
+  dateCreated: string;
 };

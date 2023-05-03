@@ -3,20 +3,32 @@ import {
   Button,
   FixList,
   ImageView,
+  Modal,
   PageContainer,
+  TextArea,
 } from "../../../../components";
 import { useParams } from "react-router-dom";
 import { getItem } from "../../../../service/RepubrishItem";
 import useAlertOptions from "../../../../hooks/useAlertOptions";
 import useGetFromStorage from "../../../../hooks/useGetFromStorage";
 import { addtocart } from "../../../../service/RefubrishCart";
+import useGetRefurbrishReview from "../../../../hooks/RefubrishItem/useGetRefurbrishReview";
+import { createRefurbrishReview } from "../../../../service/RefurbrishReview";
+import { getUserFromStorage } from "../../../../utils/storage.utils";
 
 export default function ViewDetails() {
   const { id } = useParams();
   const [data, setData] = useState<any>({});
   const { data: user } = useGetFromStorage();
+  const { data: review, sendRequest: handleGetReview } = useGetRefurbrishReview(
+    {
+      refurbrishItem_id: id ? id : "",
+    }
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { alertSuccess, alertError, alertWarning } = useAlertOptions();
+  const [isOpenReview, setIsOpenReview] = useState<boolean>(false);
+  const [myreview, setMyReview] = useState<string>("");
   const sendRequest = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -68,9 +80,56 @@ export default function ViewDetails() {
       <FixList repubrishItem_id={data.repubrishItem_id} refetch={isLoading} />
     );
   }, [data.repubrishItem_id, id, isLoading]);
+
+  const getReviews = useMemo(() => {
+    return review.map((val, i) => (
+      <div key={i.toString()} className=" border-b border-b-slate-100">
+        <h1 className=" font-bold">{val.fullname}</h1>
+        <div className=" p-4">
+          <p>{val.review}</p>
+        </div>
+      </div>
+    ));
+  }, [review]);
+
+  async function handleCreateReview() {
+    try {
+      if (!myreview) {
+        alertWarning("Please put your review ");
+        return;
+      }
+      const user = await getUserFromStorage();
+      const payload = {
+        review: myreview,
+        user_id: user.user_id,
+        refubrishItem_id: id,
+      };
+
+      const resp = await createRefurbrishReview(payload);
+
+      if (resp.data.status == 0) {
+        alertError();
+      }
+      handleGetReview(id ? id : "");
+      setIsOpenReview(false);
+      alertSuccess(resp.data.message);
+    } catch (error) {}
+  }
   return (
     <PageContainer>
       <div className=" m-auto w-1/2 md:w-3/4 lg:w-3/4">
+        <Modal
+          showModal={isOpenReview}
+          header="Review"
+          setShowModal={setIsOpenReview}
+          onConfirm={handleCreateReview}
+          onCancel={() => setIsOpenReview(false)}
+        >
+          <TextArea
+            placeholder="Write your review here..."
+            onChange={(e) => setMyReview(e.target.value)}
+          />
+        </Modal>
         <h1 className=" text-xl font-bold mb-5">Refurbrish Device Details</h1>
         <div className=" bg-white p-5 w-full shadow-lg">
           <div className=" flex flex-col md:flex-row lg:flex-row">
@@ -106,6 +165,14 @@ export default function ViewDetails() {
               </div>
               {displayFix}
             </div>
+          </div>
+        </div>
+        <div className=" h-5" />
+        <div className=" bg-white shadow-lg p-4">
+          <p className=" font-bold text-xl mb-3">Reviews</p>
+          {getReviews}
+          <div className=" flex mt-3 justify-end">
+            <Button onClick={() => setIsOpenReview(true)}>Review</Button>
           </div>
         </div>
       </div>

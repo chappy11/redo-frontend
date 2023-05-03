@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +12,8 @@ import { Bar } from "react-chartjs-2";
 
 import Card from "./components/Card";
 import Container from "./components/Container";
+import useGetAllUser from "../../hooks/user/useGetAllUser";
+import { getMonth } from "../../utils/date.util";
 
 ChartJS.register(
   CategoryScale,
@@ -35,25 +37,46 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [21, 12, 23, 324, 435, 234, 234, 23],
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Dataset 2",
-      data: [21, 12, 23, 324, 435, 234, 234, 23],
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
+const labels = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 export default function Admin() {
+  const { data: user } = useGetAllUser();
+
+  const dataSet = useMemo(() => {
+    let arr: any = [];
+
+    labels.forEach((element, i) => {
+      const getDataPerMonth = user.filter(
+        (val, idx) => getMonth(val.dateCreated) == i
+      );
+
+      arr.push(getDataPerMonth.length);
+    });
+
+    return {
+      labels,
+      datasets: [
+        {
+          label: "Register User Per Month",
+          data: arr,
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+        },
+      ],
+    };
+  }, [user]);
+  console.log(dataSet);
   return (
     <div>
       <Container>
@@ -62,7 +85,7 @@ export default function Admin() {
           <div className=" h-5" />
           <Card>
             <p>Dasboard</p>
-            <Bar options={options} data={data} />;
+            <Bar options={options} data={dataSet} />;
           </Card>
         </div>
       </Container>

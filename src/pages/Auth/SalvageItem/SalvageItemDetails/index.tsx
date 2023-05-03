@@ -7,6 +7,7 @@ import {
   Item,
   Modal,
   PageContainer,
+  TextArea,
 } from "../../../../components";
 import { BASE_URL } from "../../../../constant/config";
 import useGetSalvageItemById from "../../../../hooks/salvageitem/useGetSalvageItemById";
@@ -19,13 +20,20 @@ import useAlertOptions from "../../../../hooks/useAlertOptions";
 import { removeSalvage } from "../../../../service/SalvageItem";
 
 import { AlertIcon } from "../../../../types/AlertIcon.enum";
+import useGetSalvageItemReview from "../../../../hooks/salvageitem/useGetSalvageItemReview";
+import { createSalvageReview } from "../../../../service/SalvageReview";
+import { getUserFromStorage } from "../../../../utils/storage.utils";
 
 export default function SalvageItemDetails() {
   const { id } = useParams();
   const { data } = useGetSalvageItemById({ salvageItem_id: id ? id : "" });
+  const { data: review, sendRequest } = useGetSalvageItemReview({
+    salvageitem_id: id ? id : "",
+  });
   const { alertSuccess, alertError, alertWithAction } = useAlertOptions();
   const { data: user } = useGetFromStorage();
-
+  const [isOpenReview, setIsOpenReview] = useState<boolean>(false);
+  const [myReview, setMyReview] = useState<string>("");
   async function handleAddtoCart() {
     try {
       const payload = {
@@ -118,9 +126,61 @@ export default function SalvageItemDetails() {
       return <Item label={"Seller"} value={data?.fullname} />;
     }
   }, [user]);
+
+  const displayReview = useMemo(() => {
+    if (user?.userRoles === UserEnum.USER) {
+      return;
+    }
+
+    return review.map((val, i) => (
+      <div key={i.toString()} className=" border-b border-b-slate-100">
+        <h1 className=" font-bold">{val.fullname}</h1>
+        <div className=" p-4">
+          <p>{val.review}</p>
+        </div>
+      </div>
+    ));
+  }, [review]);
+
+  async function handleCreateReview() {
+    try {
+      if (!myReview) {
+        alertError("Please write your review");
+        return;
+      }
+      const user = await getUserFromStorage();
+      const payload = {
+        user_id: user.user_id,
+        salvageItem_id: id,
+        review: myReview,
+      };
+      const resp = await createSalvageReview(payload);
+
+      if (resp.data.status == 0) {
+        alertError();
+      }
+      sendRequest(id ? id : "");
+      alertSuccess("Thank You For Reviewing");
+      setIsOpenReview(false);
+    } catch (error) {
+      alertError();
+    }
+  }
   return (
     <PageContainer>
       <div className=" w-3/4 m-auto md:w-2/4">
+        <Modal
+          header="Item Review"
+          showModal={isOpenReview}
+          setShowModal={setIsOpenReview}
+          onConfirm={handleCreateReview}
+          onCancel={() => setIsOpenReview(false)}
+        >
+          <TextArea
+            placeholder="Write your review here..."
+            onChange={(e) => setMyReview(e.target.value)}
+          />
+        </Modal>
         <h1 className=" font-bold text-2xl">Salvage Item Details </h1>
         <div className=" h-5" />
         <div className=" bg-white shadow-lg p-3 flex flex-col md:flex-row lg:flex-row rounded-lg">
@@ -148,6 +208,15 @@ export default function SalvageItemDetails() {
             </h3>
             <div className=" h-5" />
             {displayBuyButton}
+          </div>
+        </div>
+        <div className=" h-5" />
+        <div className=" bg-white p-4 shadow-lg mb-10">
+          <h1 className=" font-bold text-xl mb-5">Reviews</h1>
+          {displayReview}
+          {review.length < 1 && <p className=" text-center">No Review</p>}
+          <div className=" flex w-full justify-end mt-3">
+            <Button onClick={() => setIsOpenReview(true)}> Review</Button>
           </div>
         </div>
       </div>

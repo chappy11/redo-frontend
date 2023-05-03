@@ -69,25 +69,25 @@ const NAV: NavType[] = [
       },
     ],
   },
-  {
-    name: "Salvage Items",
-    routes: RoutesPath.ADMIN,
-    icon: <MdPhonelink />,
-    children: [
-      {
-        name: "Pending Items",
-        icon: <TbDeviceLaptopOff />,
-        routes: RoutesPath.ADMIN,
-        children: null,
-      },
-      {
-        name: "Pending Items",
-        icon: <TbDeviceLaptop />,
-        routes: RoutesPath.ADMIN,
-        children: null,
-      },
-    ],
-  },
+  // {
+  //   name: "Salvage Items",
+  //   routes: RoutesPath.ADMIN,
+  //   icon: <MdPhonelink />,
+  //   children: [
+  //     {
+  //       name: "Pending Items",
+  //       icon: <TbDeviceLaptopOff />,
+  //       routes: RoutesPath.ADMIN,
+  //       children: null,
+  //     },
+  //     {
+  //       name: "Pending Items",
+  //       icon: <TbDeviceLaptop />,
+  //       routes: RoutesPath.ADMIN,
+  //       children: null,
+  //     },
+  //   ],
+  // },
 ];
 
 export default function SideBar(props: Props) {
