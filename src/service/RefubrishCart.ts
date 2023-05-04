@@ -38,3 +38,9 @@ export const activeCart = async (user_id: string, seller_id: string) => {
 
   return resp;
 };
+
+export const removeRefubrishItem = async (cart_id: string) => {
+  const resp = await axios.get(`refubrish_cart/remove/${cart_id}`);
+
+  return resp;
+};

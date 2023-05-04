@@ -6,6 +6,7 @@ import useAlertOptions from "../../../../hooks/useAlertOptions";
 import {
   updatestatus,
   updatequantity,
+  removeRefubrishItem,
 } from "../../../../service/RefubrishCart";
 import { RoutesPath } from "../../../../types/RoutesPath.enum";
 
@@ -60,6 +61,16 @@ export default function RefubrishCart() {
     window.location.href = RoutesPath.CHECKOUT + seller_id;
   }
 
+  async function handleRemove(rcart_id: string) {
+    try {
+      const resp = await removeRefubrishItem(rcart_id);
+
+      if (resp.data.status == 1) {
+        setRefetch(true);
+      }
+    } catch (error) {}
+  }
+
   return (
     <PageContainer>
       <div className=" w-1/2 m-auto">
@@ -100,7 +111,7 @@ export default function RefubrishCart() {
                   handleDecrement={() =>
                     handleupdatequantity(val.rcart_id, "decrement")
                   }
-                  handleRemove={() => {}}
+                  handleRemove={() => handleRemove(val.rcart_id)}
                 />
               );
             })}
