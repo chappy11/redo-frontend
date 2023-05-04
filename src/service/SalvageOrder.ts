@@ -53,3 +53,11 @@ export const getpayment = async (ref_id: string) => {
 
   return resp;
 };
+
+export const getCartCount = async (user_id: string, type: string) => {
+  const resp = await axios.get(
+    "salvage_order/cartitems/" + user_id + "/" + type
+  );
+
+  return resp;
+};

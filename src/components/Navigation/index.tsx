@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaThList, FaShoppingCart } from "react-icons/fa";
 import swal from "sweetalert";
 import { BASE_URL } from "../../constant/config";
@@ -10,6 +10,8 @@ import { RoutesPath } from "../../types/RoutesPath.enum";
 import { UserEnum } from "../../types/UserEnum.enum";
 import { logout } from "../../utils/storage.utils";
 import NavDropDown from "./NavDropDown";
+import { getCartCount } from "../../service/SalvageOrder";
+import { useLocation, useRoutes } from "react-router-dom";
 
 const logo = require("../../asset/logo.png");
 const LINKS: NavItemTypes[] = [
@@ -129,8 +131,27 @@ const SELLER: NavItemTypes[] = [
 
 export default function Navigation() {
   const { data: user } = useGetFromStorage();
-
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [count, setCount] = useState<number>();
+  const getCartNumber = useCallback(async () => {
+    try {
+      if (!user) {
+        return;
+      }
+
+      const type = user.userRoles === UserEnum.USER ? "Sal" : "Ref";
+      const resp = await getCartCount(user?.user_id, type);
+
+      setCount(resp.data.count);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    getCartNumber();
+  }, [getCartNumber, location.pathname]);
 
   const displayLinks = useMemo(() => {
     if (user?.userRoles === UserEnum.ADMIN) {
@@ -152,10 +173,13 @@ export default function Navigation() {
       return (
         <>
           <li
-            className=" cursor-pointer hover:text-white h-24 w-24 text-3xl p-3 text-green-500 flex items-center justify-center"
+            className=" cursor-pointer hover:text-white h-24 w-24 text-3xl p-3 text-green-500 flex items-center justify-center relative"
             onClick={() => (window.location.href = RoutesPath.CART)}
           >
             <FaShoppingCart />
+            <p className=" top-3 right-2 absolute p-2 w-8 h-8 flex text-center justify-center bg-red-500 text-white rounded-full text-sm">
+              {count}
+            </p>
           </li>
           <li onClick={() => setIsOpen((e) => !e)}>
             {" "}
@@ -177,7 +201,7 @@ export default function Navigation() {
         <FaThList />
       </p>
     );
-  }, [user]);
+  }, [count, user]);
   return (
     <>
       <nav className=" fixed z-50  w-screen flex bg-primary text-white">
