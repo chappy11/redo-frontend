@@ -134,6 +134,11 @@ export default function ViewDetails() {
           user_id:user?.user_id
         }
         const resp = await createRefurbrishRating(payload);   
+
+        if(resp.data.status == 1){
+          alertSuccess(resp.data.message);
+          setIsOpenRatingModal(false)
+        }
       } catch (error) {
         console.log(error)
       }
