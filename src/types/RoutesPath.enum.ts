@@ -43,4 +43,6 @@ export enum RoutesPath {
   //Cart
   CART = "/cart",
   HISTORY = "/transaction_history",
+
+  NOTIFICATION='/notification'
 }

@@ -47,6 +47,7 @@ import History from "./pages/Auth/History";
 import ShopDetails from "./pages/Admin/shop/PendingShop/ShopDetails";
 import RefurbrishReport from "./pages/Admin/RefurbrishReport";
 import SalvageReport from "./pages/Admin/SalvageReport";
+import Notification from "./pages/Auth/Notification";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -202,6 +203,7 @@ function App() {
               path={RoutesPath.UPDATE_REFURBRISH + ":id"}
               element={<UpdateRefurbrish />}
             />
+            <Route path={RoutesPath.NOTIFICATION} element={<Notification/>}/>
             {adminRoutes}
           </>
         )}

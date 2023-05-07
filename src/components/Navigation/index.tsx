@@ -39,6 +39,11 @@ const AUTHLINK: NavItemTypes[] = [
     onClick: () => (window.location.href = RoutesPath.HOME),
   },
   {
+    name: "Notification",
+    url: RoutesPath.NOTIFICATION,
+    onClick: () => (window.location.href = RoutesPath.NOTIFICATION),
+  },
+  {
     name: "Salvage Items",
     url: RoutesPath.SHOPS,
     onClick: () => (window.location.href = RoutesPath.SALVAGE_ITEM),
@@ -89,8 +94,8 @@ const SELLER: NavItemTypes[] = [
   },
   {
     name: "Notification",
-    url: RoutesPath.HOME,
-    onClick: () => (window.location.href = RoutesPath.HOME),
+    url: RoutesPath.NOTIFICATION,
+    onClick: () => (window.location.href = RoutesPath.NOTIFICATION),
   },
   {
     name: "View Profile",
