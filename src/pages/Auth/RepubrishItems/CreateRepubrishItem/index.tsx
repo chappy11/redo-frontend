@@ -25,10 +25,10 @@ export default function CreateRepubrishItem() {
   const [quantity, setQuantity] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const { alertError, alertSuccess, alertWarning, alertWithAction } =
+  const { alertError,  alertWarning, alertWithAction } =
     useAlertOptions();
 
-  const { brands } = useGetAllBrands();
+
 
 
 
@@ -126,8 +126,8 @@ export default function CreateRepubrishItem() {
 
   async function submit() {
     try {
-      if (!pic1 || !pic2 || !pic3) {
-        alertWarning("3 Picture is Required");
+      if (!pic1) {
+        alertWarning("First Picture is Required");
         return;
       }
 
