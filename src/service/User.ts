@@ -90,6 +90,12 @@ const updatestatus = async (payload: any) => {
   return resp;
 };
 
+const getUserByShop = async (user_id:string) => {
+  const resp = await axios.get('user/getusershop/'+user_id);
+
+  return resp;
+}
+
 export {
   login,
   register,
@@ -102,4 +108,5 @@ export {
   changePassword,
   updateUser,
   updatestatus,
+  getUserByShop
 };

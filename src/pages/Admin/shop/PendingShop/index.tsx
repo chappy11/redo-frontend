@@ -4,6 +4,7 @@ import { approved, getpendingshop } from "../../../../service/User";
 import { Button } from "../../../../components";
 import Table from "../../../../components/Table";
 import useAlertOptions from "../../../../hooks/useAlertOptions";
+import { RoutesPath } from "../../../../types/RoutesPath.enum";
 
 export default function PendingShop() {
   const [data, setData] = useState<any[]>([]);
@@ -27,7 +28,7 @@ export default function PendingShop() {
         <td className=" capitalize text-secondary">{val.shopAddress}</td>
 
         <td>
-          <Button onClick={() => handleApproved(val.user_id)}>Approve</Button>
+          <Button onClick={() => window.location.href=RoutesPath.ADMIN_SHOP_DETAILS+val.user_id}>View Details</Button>
         </td>
       </tr>
     ));

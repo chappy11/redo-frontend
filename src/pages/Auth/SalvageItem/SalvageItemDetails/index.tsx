@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Button,
@@ -23,6 +23,10 @@ import { AlertIcon } from "../../../../types/AlertIcon.enum";
 import useGetSalvageItemReview from "../../../../hooks/salvageitem/useGetSalvageItemReview";
 import { createSalvageReview } from "../../../../service/SalvageReview";
 import { getUserFromStorage } from "../../../../utils/storage.utils";
+import Rating from "../../../../components/Rating";
+import { RatingSize } from "../../../../types/RatingSize.enum";
+import useGetSalvageItemRate from "../../../../hooks/salvageitem/useGetSalvageItemRate";
+import { createSalvageRating } from "../../../../service/SalvageRating";
 
 export default function SalvageItemDetails() {
   const { id } = useParams();
@@ -30,10 +34,14 @@ export default function SalvageItemDetails() {
   const { data: review, sendRequest } = useGetSalvageItemReview({
     salvageitem_id: id ? id : "",
   });
+
+  const {rating} = useGetSalvageItemRate({salvageitem_id: id ? id:""});
   const { alertSuccess, alertError, alertWithAction } = useAlertOptions();
   const { data: user } = useGetFromStorage();
   const [isOpenReview, setIsOpenReview] = useState<boolean>(false);
   const [myReview, setMyReview] = useState<string>("");
+  const [isOpenRatingModal,setIsOpenRatingModal] = useState<boolean>(false);
+  const [myRating,SetMyRating] = useState<number>(0);
   async function handleAddtoCart() {
     try {
       const payload = {
@@ -125,7 +133,7 @@ export default function SalvageItemDetails() {
     if (user?.userRoles === UserEnum.REPAIRER) {
       return <Item label={"Seller"} value={data?.fullname} />;
     }
-  }, [user]);
+  }, [data?.fullname, user?.userRoles]);
 
   const displayReview = useMemo(() => {
     if (user?.userRoles === UserEnum.USER) {
@@ -140,7 +148,7 @@ export default function SalvageItemDetails() {
         </div>
       </div>
     ));
-  }, [review]);
+  }, [review, user?.userRoles]);
 
   async function handleCreateReview() {
     try {
@@ -166,6 +174,28 @@ export default function SalvageItemDetails() {
       alertError();
     }
   }
+
+  const handleChangeRate = useCallback(
+    async() => {
+      try {
+        const payload = {
+          rate:myRating,
+          user_id:user?.user_id,
+          salvageItem_id:id
+        }
+        const resp = await createSalvageRating(payload);
+        
+        if(resp.data.status == 1){
+          alertSuccess(resp.data.message);
+          setIsOpenRatingModal(false)
+        }
+      } catch (error) {
+        
+      }
+    },
+    [alertSuccess, id, myRating, user?.user_id],
+  )
+  
   return (
     <PageContainer>
       <div className=" w-3/4 m-auto md:w-2/4">
@@ -181,6 +211,18 @@ export default function SalvageItemDetails() {
             onChange={(e) => setMyReview(e.target.value)}
           />
         </Modal>
+        <Modal 
+        header="Rate This Item" 
+        showModal={isOpenRatingModal} 
+        setShowModal={setIsOpenRatingModal}
+        onConfirm={handleChangeRate}
+        onCancel={()=>{}}
+        >
+          <div className=" flex justify-center">
+            <Rating rate={myRating} setRate={SetMyRating} size={RatingSize.LARGE} />
+
+          </div>
+        </Modal>
         <h1 className=" font-bold text-2xl">Salvage Item Details </h1>
         <div className=" h-5" />
         <div className=" bg-white shadow-lg p-3 flex flex-col md:flex-row lg:flex-row rounded-lg">
@@ -192,6 +234,10 @@ export default function SalvageItemDetails() {
             <h1 className=" text-xl font-extrabold text-primary">
               {data?.deviceName}
             </h1>
+            <div className="" onClick={()=>setIsOpenRatingModal(true)}>
+              <Rating rate={rating} isReadOnly  size={RatingSize.MEDIUM}/>
+            </div>
+          
             <div className=" flex flex-row"></div>
 
             <div className=" border-b-slate-300 my-3 border-b"></div>

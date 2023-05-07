@@ -61,3 +61,9 @@ export const getSuccessOrder = async (user_id: string) => {
 
   return resp;
 };
+
+export const getAllSuccessRefurbrish = async () => {
+  const resp = await axios.get("refubrish_order/allsuccess");
+
+  return resp;
+};

@@ -61,3 +61,9 @@ export const getCartCount = async (user_id: string, type: string) => {
 
   return resp;
 };
+
+export const getAllSuccessSalvage = async () => {
+  const resp = await axios.get("salvage_order/allsuccess");
+
+  return resp;
+};

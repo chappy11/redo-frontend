@@ -26,7 +26,7 @@ export default function Container(props: Props) {
     return <Content user={user}>{props.children}</Content>;
   }, [props.children, user]);
   return (
-    <div className=" flex">
+    <div className=" flex bg-slate-300 flex-1 h-full">
       {displaySideBar}
       {displayContent}
     </div>

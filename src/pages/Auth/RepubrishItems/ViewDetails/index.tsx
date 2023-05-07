@@ -15,6 +15,10 @@ import { addtocart } from "../../../../service/RefubrishCart";
 import useGetRefurbrishReview from "../../../../hooks/RefubrishItem/useGetRefurbrishReview";
 import { createRefurbrishReview } from "../../../../service/RefurbrishReview";
 import { getUserFromStorage } from "../../../../utils/storage.utils";
+import useGetRefurbrishRate from "../../../../hooks/RefubrishItem/useGetRefurbrishRate";
+import Rating from "../../../../components/Rating";
+import { RatingSize } from "../../../../types/RatingSize.enum";
+import { createRefurbrishRating } from "../../../../service/RefurbrishRating";
 
 export default function ViewDetails() {
   const { id } = useParams();
@@ -25,10 +29,15 @@ export default function ViewDetails() {
       refurbrishItem_id: id ? id : "",
     }
   );
+  const {rating} = useGetRefurbrishRate({refurbrishItem_id : id ? id:""})
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { alertSuccess, alertError, alertWarning } = useAlertOptions();
   const [isOpenReview, setIsOpenReview] = useState<boolean>(false);
   const [myreview, setMyReview] = useState<string>("");
+  const [isOpenRatingModal,setIsOpenRatingModal] = useState<boolean>(false);
+  const [myRating,setMyRating] = useState<number>(3);
+
+
   const sendRequest = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -115,6 +124,23 @@ export default function ViewDetails() {
       alertSuccess(resp.data.message);
     } catch (error) {}
   }
+
+  const handleChangeRating = useCallback(
+    async() => {
+      try {
+        const payload = {
+          rate:myRating,
+          item_id:id,
+          user_id:user?.user_id
+        }
+        const resp = await createRefurbrishRating(payload);   
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [id, myRating, user?.user_id],
+  )
+  
   return (
     <PageContainer>
       <div className=" m-auto w-1/2 md:w-3/4 lg:w-3/4">
@@ -129,6 +155,17 @@ export default function ViewDetails() {
             placeholder="Write your review here..."
             onChange={(e) => setMyReview(e.target.value)}
           />
+        </Modal>
+        <Modal
+          showModal={isOpenRatingModal}
+          header="Rate This Item"
+          setShowModal={setIsOpenRatingModal}
+          onConfirm={handleChangeRating}
+          onCancel={()=>{}}
+        >
+          <div className=" flex justify-center">
+            <Rating rate={myRating} setRate={setMyRating} size={RatingSize.LARGE}/>
+          </div>
         </Modal>
         <h1 className=" text-xl font-bold mb-5">Refurbrish Device Details</h1>
         <div className=" bg-white p-5 w-full shadow-lg">
@@ -145,7 +182,9 @@ export default function ViewDetails() {
                 {data?.rdevice_name} ({data?.rdeviceBrand})
               </h1>
               <p className=" text-sm text-secondary">{data?.rdevice_type}</p>
-
+              <div onClick={()=>setIsOpenRatingModal(true)}>
+                <Rating rate={rating} size={RatingSize.MEDIUM}/>
+              </div>
               <p className=" mt-4 text-red-400 font-bold">
                 PHP {data?.selling_price}
               </p>

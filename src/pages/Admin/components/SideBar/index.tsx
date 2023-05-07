@@ -69,6 +69,19 @@ const NAV: NavType[] = [
       },
     ],
   },
+  {
+    name: "Refurbrish Item Report",
+    icon: <TbLayoutDashboard />,
+    routes: RoutesPath.REFURBRISH_REPORT,
+    children: null,
+  },
+  {
+    name: "Salvage Item Reports",
+    icon: <TbLayoutDashboard />,
+    routes: RoutesPath.SALVAGE_REPORT,
+    children: null,
+  },
+
   // {
   //   name: "Salvage Items",
   //   routes: RoutesPath.ADMIN,
@@ -92,7 +105,7 @@ const NAV: NavType[] = [
 
 export default function SideBar(props: Props) {
   return (
-    <nav className="h-screen bg-primary w-2/12 ">
+    <nav className="h-screen bg-primary w-2/12 fixed">
       <img src={Image} alt="Logo" className=" w-90" />
       <ul>
         {NAV.map((val, i) => (

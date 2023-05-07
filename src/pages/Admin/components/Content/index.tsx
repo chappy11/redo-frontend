@@ -35,7 +35,7 @@ export default function Content(props: Props) {
     window.location.href = RoutesPath.DASHBOARD;
   }
   return (
-    <div className=" w-full bg-slate-300">
+    <div className=" w-full bg-slate-300 ml-52">
       <nav className="w-full bg-secondary">
         <ul className=" flex justify-end p-5">
           <li className=" flex">{displayData}</li>

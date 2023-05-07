@@ -14,12 +14,11 @@ export const calculateSalvagePrice = (
   const purchaseP = parseFloat(purchasePrice);
   const numberYears = parseInt(numberOfYears);
   const salvageLevel = parseInt(salvaLevel);
+  //purchase price = 3000
+  depAmount = purchaseP * percent;   //300
+ 
+  let x = purchaseP - depAmount; //2700
+  let y = x / numberYears; //2 yers // 1350
 
-  depAmount = purchaseP * percent;
-  // console.log(purchaseP);
-  // return depAmount;
-  let x = purchaseP - depAmount;
-  let y = x / numberYears;
-
-  return y / salvageLevel;
+  return y / salvageLevel; // 1350 / 2 = 337.5
 };

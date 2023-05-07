@@ -30,13 +30,7 @@ export default function CreateRepubrishItem() {
 
   const { brands } = useGetAllBrands();
 
-  const displayDeviceBrand = useMemo(() => {
-    return brands.map((val, i) => (
-      <option value={val.brandName} key={val.brand_id}>
-        {val.brandName}
-      </option>
-    ));
-  }, [brands]);
+
 
   const onChangeFirstPic = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -224,13 +218,11 @@ export default function CreateRepubrishItem() {
               {displayDeviceType}
             </select>
             <div className=" h-5" />
-            <select
-              className={`border-2 outline-none px-5 py-2 border-gray-300 text-gray-600 w-full rounded  focus:border-green-400`}
+           <TextInput
+              placeholder="Device Brand"  
               onChange={(e) => setDeviceBrand(e.target.value)}
-            >
-              <option>Please Choose Device Brand</option>
-              {displayDeviceBrand}
-            </select>
+            />
+            
             <div className=" h-5" />
             <TextInput
               placeholder="Salvage Purchase Price"

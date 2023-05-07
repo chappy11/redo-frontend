@@ -44,6 +44,9 @@ import UpdateRefurbrish from "./pages/Auth/RepubrishItems/UpdateRefurbrish";
 import ForgotPassword from "./pages/UnAuth/ForgotPassword";
 import Profile from "./pages/Profile";
 import History from "./pages/Auth/History";
+import ShopDetails from "./pages/Admin/shop/PendingShop/ShopDetails";
+import RefurbrishReport from "./pages/Admin/RefurbrishReport";
+import SalvageReport from "./pages/Admin/SalvageReport";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -61,6 +64,9 @@ function App() {
             element={<UserWithStatus />}
           />
           <Route path={RoutesPath.PENDING_SHOP} element={<PendingShop />} />
+          <Route path={RoutesPath.ADMIN_SHOP_DETAILS + ":id"} element={<ShopDetails/>}/>
+          <Route path={RoutesPath.REFURBRISH_REPORT} element={<RefurbrishReport/>}/>
+          <Route path={RoutesPath.SALVAGE_REPORT} element={<SalvageReport/>}/>
         </>
       );
   }, [user]);

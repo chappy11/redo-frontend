@@ -25,10 +25,11 @@ export enum RoutesPath {
   USERS = "/user",
   USER_WITH_STATUS = "/user/",
   PENDING_SHOP = "/pending",
-
+  ADMIN_SHOP_DETAILS = '/shopdetails/',
   TRANSACTION_HISTORY = "/user_transactions",
   TRANSACTION_DETAILS = "/user_transaction/",
-
+  REFURBRISH_REPORT = '/refurbrishreports',
+  SALVAGE_REPORT = '/salvagereports',
   //repubrish
   REPUBRISH_ITEMS = "/repubrishitems",
   REPUBRISH_ITEMS_DETAILS = "/repubrishitems/",
