@@ -35,7 +35,7 @@ export default function RepubrishItems() {
   return (
     <PageContainer>
       <div className=" w-1/3 m-auto ">
-        <h1>Repubrish Items</h1>
+        <h1 className=" font-bold text-xl">Refurbish Items</h1>
         <Button
           onClick={() =>
             (window.location.href = RoutesPath.CREATE_REPUBRISH_ITEM)
