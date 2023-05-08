@@ -34,7 +34,7 @@ export default function PaymentList(props: Props) {
   }, [data]);
 
   return (
-    <Table header={["Ref ID", "Amount", "Sender", "Reciever"]}>
+    <Table header={["Ref ID", "Amount", "Sender", "Receiver"]}>
       {dipslayData}
     </Table>
   );

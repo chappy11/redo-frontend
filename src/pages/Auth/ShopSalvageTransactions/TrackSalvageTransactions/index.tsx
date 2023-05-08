@@ -89,7 +89,7 @@ export default function TrackSalvageTransactions() {
             </p>
             <div className=" flex  justify-center items-start mx-5 flex-col">
               <p>
-                Your item has beel already accepted waiting for seller to
+                Your item has been already accepted waiting for seller to
                 deliver your item.
               </p>
               <span className=" text-xs">
@@ -151,7 +151,7 @@ export default function TrackSalvageTransactions() {
               {getTransactionIcon(ItemTransactionStatus.SUCCESS)}
             </p>
             <div className=" flex  justify-center items-center mx-5">
-              <p>Item Recieved!</p>
+              <p>Item Received!</p>
             </div>
           </div>
         );
@@ -198,7 +198,7 @@ export default function TrackSalvageTransactions() {
               <h1 className=" font-bold">Order item</h1>
               <OrderItem id={data?.salvageorder_id} />
               <p className=" my-2">
-                Reciever Name: {data?.salvage_recievername}
+                Receiver Name: {data?.salvage_recievername}
               </p>
               <p className=" my-2">
                 Mobile Number: {data?.salvage_recieverMobile}
