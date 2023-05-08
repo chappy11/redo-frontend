@@ -253,7 +253,7 @@ export default function RefubrishTransactionDetails() {
               <p className=" my-2">
                 {data?.courier} : {data?.courierRef}
               </p>
-              <Table header={["Ref ID", "Amount", "Sender", "Reciever"]}>
+              <Table header={["Ref ID", "Amount", "Sender", "Receiver"]}>
                 {displayPayment}
               </Table>
               <div className=" h-4" />
