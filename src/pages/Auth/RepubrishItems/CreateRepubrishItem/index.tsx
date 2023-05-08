@@ -195,7 +195,7 @@ export default function CreateRepubrishItem() {
   return (
     <PageContainer>
       <div className=" m-auto w-3/4">
-        <h1 className=" font-bold text-xl">Create Repubrish Item</h1>
+        <h1 className=" font-bold text-xl">Create Refurbish Item</h1>
         <div className=" mt-5 w-full bg-white shadow-lg p-6 mb-10">
           <div className=" flex space-x-5 justify-center">
             {displayPic1}
