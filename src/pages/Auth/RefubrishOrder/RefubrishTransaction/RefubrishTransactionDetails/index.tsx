@@ -134,7 +134,7 @@ export default function RefubrishTransactionDetails() {
             </p>
             <div className=" flex  justify-center items-start mx-5 flex-col">
               <p>
-                Your item has beel already accepted waiting for seller to
+                Your item has already been accepted waiting for seller to
                 deliver your item.
               </p>
               <span className=" text-xs">
@@ -196,7 +196,7 @@ export default function RefubrishTransactionDetails() {
               {getTransactionIcon(ItemTransactionStatus.SUCCESS)}
             </p>
             <div className=" flex  justify-center items-center mx-5">
-              <p>Item Recieved!</p>
+              <p>Item Received!</p>
             </div>
           </div>
         );

@@ -170,7 +170,7 @@ function UserSellingOrderDetails() {
               onChange={(e) => setCourierRef(e.target.value)}
             />
           </Modal>
-          <p className=" my-2">Reciever Name: {data?.r_recievername}</p>
+          <p className=" my-2">Receiver Name: {data?.r_recievername}</p>
           <p className=" my-2">Mobile Number: {data?.r_mobileNumber}</p>
           <p className=" my-2">Shipping Address: {data?.r_shippingAddress}</p>
           <p className=" my-2">Amount : PHP {data?.total_amount}</p>
@@ -179,7 +179,7 @@ function UserSellingOrderDetails() {
           <p className=" text-center text-red-500">
             <span className=" font-bold">Note: </span>
             Currently your money is in our hands. The system will automatically
-            transafer to your account after you finish this transaction.
+            transfer to your account after you finish this transaction.
           </p>
 
           <div className=" h-4" />
