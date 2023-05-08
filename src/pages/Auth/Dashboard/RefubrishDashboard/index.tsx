@@ -9,7 +9,7 @@ export default function RefubrishDashboard() {
   return (
     <PageContainer>
       <div>
-        <h1 className=" ml-10 font-bold text-2xl mb-10">Refurbrish Items</h1>
+        <h1 className=" ml-10 font-bold text-2xl mb-10">Refurbish Items</h1>
         <div className=" flex justify-center">
           <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {item.map((val, i) => (
