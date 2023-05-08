@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import useGetUserShop from '../../../../../hooks/user/useGetUserShop';
 import { BASE_URL } from '../../../../../constant/config';
 import { Button, Item, Modal } from '../../../../../components';
-import { approved } from '../../../../../service/User';
+import { approved, declined } from '../../../../../service/User';
 import useAlertOptions from '../../../../../hooks/useAlertOptions';
 import { AlertIcon } from '../../../../../types/AlertIcon.enum';
 import { RoutesPath } from '../../../../../types/RoutesPath.enum';
@@ -39,6 +39,33 @@ export default function ShopDetails() {
       
     }
   }, [alertError, alertSuccess, id]);
+
+  const handleDeclined = useCallback(
+    async() => {
+      try {
+        if(!id){
+          return;
+        }
+        const resp = await declined(id)
+
+        if(resp.data.status == 1){
+          alertWithAction({
+            title: 'Successfully Declined',
+            text: resp.data.message,
+            icon: AlertIcon.SUCCESS,
+            onConfirm:()=>{window.location.href=RoutesPath.PENDING_SHOP}
+        })
+        return;
+        }
+
+        alertError(resp.data.message);
+      } catch (error) {
+        alertError();
+      }
+    },
+    [],
+  )
+  
   return (
     <Container>
         <div className=' m-auto w-3/4 mt-10'>
@@ -90,7 +117,7 @@ export default function ShopDetails() {
                             <Item label='Mobile Number' value={data?.phoneNumber}/>
                             <div className=' flex gap-7'>
                                 <Button onClick={handleApproved}>Approved</Button>
-                                <Button backgroundColor=' bg-red-500'>Decline</Button>
+                                <Button onClick={handleDeclined} backgroundColor=' bg-red-500'>Decline</Button>
                             </div>
                         </div>
                     </div>

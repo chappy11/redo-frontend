@@ -3,7 +3,7 @@ import { Button, PageContainer } from "../../../components";
 import useGetFromStorage from "../../../hooks/useGetFromStorage";
 import { getRepubrishItem } from "../../../service/RepubrishItem";
 import Item from "./Item";
-import { Routes } from "react-router-dom";
+
 import { RoutesPath } from "../../../types/RoutesPath.enum";
 
 export default function RepubrishItems() {

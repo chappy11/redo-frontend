@@ -15,6 +15,11 @@ import { createFix } from "../../../../service/RefubrishFix";
 import { convertMoney } from "../../../../utils/money.utils";
 import { RoutesPath } from "../../../../types/RoutesPath.enum";
 import { AlertIcon } from "../../../../types/AlertIcon.enum";
+import Rating from "../../../../components/Rating";
+import { RatingSize } from "../../../../types/RatingSize.enum";
+import useGetRefurbrishRate from "../../../../hooks/RefubrishItem/useGetRefurbrishRate";
+import { getUserFromStorage } from "../../../../utils/storage.utils";
+import { createRefurbrishRating } from "../../../../service/RefurbrishRating";
 
 export default function RepubrishItemDetails() {
   const { id } = useParams();
@@ -27,7 +32,9 @@ export default function RepubrishItemDetails() {
   const { alertError, alertSuccess, alertWarning, alertWithAction } =
     useAlertOptions();
   const [total, setTotal] = useState<string>("0.00");
-
+  const [isOpenRatingModal,setIsOpenRatingModal] = useState<boolean>(false);
+  const [myRating,setMyRating] = useState<number>(3);
+  const {rating} = useGetRefurbrishRate({refurbrishItem_id : id ? id:""})
   const getData = useCallback(async () => {
     try {
       const resp = await getItem(id ?? "");
@@ -119,10 +126,44 @@ export default function RepubrishItemDetails() {
       console.log(error);
     }
   }
+
+  const handleChangeRating = useCallback(
+    async() => {
+      try {
+        const user = await getUserFromStorage();
+        const payload = {
+          rate:myRating,
+          item_id:id,
+          user_id:user?.user_id
+        }
+        const resp = await createRefurbrishRating(payload);   
+
+        if(resp.data.status == 1){
+          alertSuccess(resp.data.message);
+          setIsOpenRatingModal(false)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [id, myRating],
+  )
+  
   return (
     <PageContainer>
       <div className=" w-3/4 md:w-1/2 lg:w-1/2 m-auto">
         <h1 className=" text-xl font-bold">Device Details</h1>
+        <Modal
+          showModal={isOpenRatingModal}
+          header="Rate This Item"
+          setShowModal={setIsOpenRatingModal}
+          onConfirm={handleChangeRating}
+          onCancel={()=>{}}
+        >
+          <div className=" flex justify-center">
+            <Rating rate={myRating} setRate={setMyRating} size={RatingSize.LARGE}/>
+          </div>
+        </Modal>
         <div className=" h-5" />
         <div className=" w-full md:flex lg:flex bg-white shadow-lg p-3">
           <div className=" flex-1">
@@ -137,6 +178,9 @@ export default function RepubrishItemDetails() {
           <div className=" h-5" />
           <div className=" flex-1">
             <h1 className=" text-lg font-bold">Device Info</h1>
+            <div onClick={()=>setIsOpenRatingModal(true)}>
+                <Rating rate={rating} size={RatingSize.MEDIUM}/>
+              </div>
             <Item label="Device Name" value={data?.rdevice_name} />
             <Item label="Device Type" value={data?.rdevice_type} />
             <Item label="Device Brand" value={data?.rdeviceBrand} />

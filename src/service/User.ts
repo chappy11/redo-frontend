@@ -96,9 +96,16 @@ const getUserByShop = async (user_id:string) => {
   return resp;
 }
 
+
+const declined = async(user_id:string) =>{
+  const resp = await axios.post('user/decline/'+user_id);
+
+  return resp;
+}
 export {
   login,
   register,
+  declined,
   getUserData,
   getUsersByStatus,
   allUser,

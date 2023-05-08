@@ -234,10 +234,10 @@ export default function SalvageItemDetails() {
             <h1 className=" text-xl font-extrabold text-primary">
               {data?.deviceName}
             </h1>
-            <div className="" onClick={()=>setIsOpenRatingModal(true)}>
+            {/* <div className="" onClick={()=>setIsOpenRatingModal(true)}>
               <Rating rate={rating} isReadOnly  size={RatingSize.MEDIUM}/>
             </div>
-          
+           */}
             <div className=" flex flex-row"></div>
 
             <div className=" border-b-slate-300 my-3 border-b"></div>
