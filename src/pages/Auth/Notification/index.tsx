@@ -11,7 +11,7 @@ export default function Notification() {
       async() => {
         try {
             const user = await getUserFromStorage();
-            const resp = await getNotification(user.user_id);
+            const resp = await getNotification(user?.user_id);
             
             setData(resp.data.data);
         } catch (error) {
@@ -23,7 +23,7 @@ export default function Notification() {
 
     useEffect(() => {
       sendRequest();
-    }, []);
+    }, [sendRequest]);
     
     
     const displayNotification = useMemo(() => {
@@ -38,9 +38,10 @@ export default function Notification() {
         ))
     }, [data])
   
+    console.log(data);
     return (
     <PageContainer>
-        <div className=' m-auto w-1/2'>
+        <div className=' mx-5 md:m-auto lg:m-auto md:w-3/4 lg:w-3/4'>
             <div className=' bg-primary p-4'>
                 <p className=' text-white font-bold text-xl'>Notification</p>
             </div>

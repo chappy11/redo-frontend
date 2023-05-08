@@ -22,8 +22,8 @@ export default function ShopSalvageTransactions() {
 
   return (
     <PageContainer>
-      <div className=" w-3/4 m-auto">
-        <h1>Transactions</h1>
+      <div className=" mx-5 md:m-auto lg:m-auto md:w-3/4 lg:w-3/4 mb-10">
+        <h1 className=" font-bold text-xl">Transactions</h1>
         <div className=" h-5" />
         {displayTransactions}
       </div>

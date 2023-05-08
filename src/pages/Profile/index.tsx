@@ -12,6 +12,7 @@ import { updateUser } from "../../service/User";
 import { save } from "../../utils/storage.utils";
 import useAlertOptions from "../../hooks/useAlertOptions";
 import { AlertIcon } from "../../types/AlertIcon.enum";
+import { UserEnum } from "../../types/UserEnum.enum";
 
 export default function Profile() {
   const { data } = useGetFromStorage();
@@ -143,14 +144,40 @@ export default function Profile() {
     );
   }, [isUpdate, image, profilePic, onChangePic]);
 
+  const displayShopData = useMemo(()=>{
+    if(!data){
+      return;
+    }
+    if(data?.userRoles === UserEnum.USER){
+      return;
+    }
+
+    return ( 
+      <div>
+         <img
+            className=" rounded-full m-auto w-32 h-32 bg-slate-100  mt-6"
+            src={BASE_URL + data?.shopImage}
+            alt="GG"
+          />
+            <Item label="Shop name" value={data?.shop_name as string} />
+            <Item label="Shop Address" value={data?.shopAddress as string} />
+      </div>
+   );
+  },[data])
+  console.log(data?.shopImage ??  data?.shopImage)
   return (
     <PageContainer>
-      <div className=" w-1/4 m-auto">
+      <div className=" mx-5 md:w-1/2 lg:w-1/2 md:m-auto lg:m-auto mb-10">
         <div className=" bg-white rounded-md shadow-lg p-4">
           <h1 className=" text-xl font-bold ">Profile</h1>
           {displayProfile}
           <div className=" h-5" />
           {display}
+        </div>
+        <div className=" h-5"/>
+        <div className=" bg-white rounded-md shadow-lg p-4 mb-10">
+          <h1 className=" text-xl font-bold ">Shop Details</h1>
+          {displayShopData}
         </div>
       </div>
     </PageContainer>

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Navigation } from "../../../components";
+import { Navigation, PageContainer } from "../../../components";
 import useGetFromStorage from "../../../hooks/useGetFromStorage";
 import { getShop } from "../../../service/RepairShop";
 import { UserEnum } from "../../../types/UserEnum.enum";
@@ -51,10 +51,10 @@ export default function Shop() {
     }
   }, [user, shop]);
   return (
-    <div>
-      <Navigation />
-      <div className=" h-36" />
+    <PageContainer>
+      <div className=" mx-5 md:m-auto lg:m-auto md:w-3/4 lg:w-3/4">
       {displayShop}
-    </div>
+      </div>
+    </PageContainer>
   );
 }

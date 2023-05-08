@@ -145,6 +145,14 @@ function UserSellingOrderDetails() {
     ));
   }, [data, payment]);
 
+  const displayCourierRef = useMemo(()=>{
+    if(data?.courierRef === ""){
+      return
+    }
+
+    return( <p className=" my-2">Courier Ref: {data?.courierRef}</p>);
+  },[data?.courierRef])
+
   return (
     <PageContainer>
       <div className=" w-3/4 m-auto">
@@ -172,6 +180,9 @@ function UserSellingOrderDetails() {
           </Modal>
           <p className=" my-2">Receiver Name: {data?.r_recievername}</p>
           <p className=" my-2">Mobile Number: {data?.r_mobileNumber}</p>
+          <p className=" my-2">Courier: {data?.courier}</p>
+          
+          {displayCourierRef}
           <p className=" my-2">Shipping Address: {data?.r_shippingAddress}</p>
           <p className=" my-2">Amount : PHP {data?.total_amount}</p>
           <div className=" flex justify-end mb-5">{displayButton}</div>

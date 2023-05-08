@@ -21,14 +21,16 @@ export default function Item(props: Props) {
         <p className=" font-bold">Issue</p>
         <p className=" text-sm ml-3">{item.rdevice_description}</p>
         <div className=" h-5" />
-        <Button
-          onClick={() =>
-            (window.location.href =
-              RoutesPath.REPUBRISH_ITEMS_DETAILS + item.repubrishItem_id)
-          }
-        >
-          View Details
-        </Button>
+      
+          <Button
+            onClick={() =>
+              (window.location.href =
+                RoutesPath.REPUBRISH_ITEMS_DETAILS + item.repubrishItem_id)
+            }
+          >
+            View Details
+          </Button>
+       
       </div>
     </div>
   );

@@ -80,7 +80,7 @@ export default function RepairerHistory() {
 },[data])
   return (
     <PageContainer>
-      <div className=" m-auto w-1/2">
+      <div className=" mx-5 md:w-1/2 lg:w-1/2 md:m-auto lg:m-auto">
         
         <div className=" bg-primary p-4 shadow-lg flex">
           <div className=" flex-1">
@@ -91,7 +91,7 @@ export default function RepairerHistory() {
           </h1>
         </div>
         <div className=" bg-white shadow-lg my-5 p-4">
-        <Bar options={options} data={dataSet} />
+        <Bar options={options} data={dataSet} className=" w-full" />
         </div>
         {displayData}
       </div>

@@ -21,7 +21,7 @@ export default function UserSellingOrder() {
 
   return (
     <PageContainer>
-      <div className=" w-3/4 m-auto">
+      <div className=" mx-5 md:w-1/2 lg:w-1/2 md:m-auto lg:m-auto">
         <h1>Orders</h1>
         <div className=" h-5" />
         {displayData}

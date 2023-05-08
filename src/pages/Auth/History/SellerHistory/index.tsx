@@ -83,8 +83,7 @@ export default function SellerHistory() {
   }, [data]);
   return (
     <PageContainer>
-      <div className=" w-1/2 m-auto">
-     
+      <div className=" mx-5 md:w-1/2 lg:w-1/2 md:m-auto lg:m-auto">
         <div className=" bg-primary w-full p-4 flex">
           <div className=" flex flex-1">
             <h1 className=" text-white font-bold">Transaction History</h1>

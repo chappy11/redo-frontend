@@ -16,8 +16,11 @@ export default function RepairShop(props: Props) {
     window.location.href = RoutesPath.REFUBRISH_ORDERS;
   }
 
+  function handleGoToProfile(){
+    window.location.href = RoutesPath.PROFILE;
+  }
+
   return (
-    <div className=" m-auto w-1/2">
       <div className=" bg-white shadow-lg full">
         <div className=" flex justify-center bg-slate-50">
           <img src={BASE_URL + "" + props.shopImage} alt="SHOP" className="" />
@@ -27,7 +30,7 @@ export default function RepairShop(props: Props) {
         </h1>
         <h3 className=" text-center">{props.shopAddress}</h3>
 
-        <div className=" flex w-1/2 m-auto py-10">
+        <div className=" flex flex-row justify-center mt-10">
           <ServiceItem
             icon={<GoTools />}
             onClick={handleGoToRepubrish}
@@ -40,11 +43,10 @@ export default function RepairShop(props: Props) {
           />
           <ServiceItem
             icon={<GiShop />}
-            onClick={handleGoToRepubrish}
+            onClick={handleGoToProfile}
             name="Shop Details"
           />
         </div>
       </div>
-    </div>
   );
 }

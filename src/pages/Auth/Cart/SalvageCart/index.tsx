@@ -88,7 +88,7 @@ export default function SalvageCart() {
   }, [data]);
   return (
     <PageContainer>
-      <div className=" m-auto w-1/2">
+     <div className=" mx-5 md:w-1/2 lg:w-1/2 md:m-auto lg:m-auto">
         <h1 className=" text-xl font-bold text-primary">Salvage Cart</h1>
         <div className=" mx-5" />
         {data.map((item, i) => (

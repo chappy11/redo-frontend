@@ -169,9 +169,21 @@ export default function TrackSalvageTransactions() {
     [thisIndex, data?.salvageorder_status]
   );
 
+  const displayCourierRef = useMemo(() => {
+    if(data?.courierRef === ''){
+      return;
+    }
+
+    return ( 
+    <p className=" my-2">
+      Courier Ref: {data?.courierRef}
+    </p>
+    )
+  }, [data?.courierRef])
+
   return (
     <PageContainer>
-      <div className=" m-auto w-3/4">
+      <div className=" md:m-auto lg:m-auto mx-5  md:w-3/4 lg:w-3/4">
         <h1 className=" font-bold">Track Order</h1>
         <div className=" h-5" />
         <div className=" bg-white p-4 shadow-lg mb-10 flex flex-col md:flex-row-reverse lg:flex-row-reverse ">
@@ -200,6 +212,13 @@ export default function TrackSalvageTransactions() {
               <p className=" my-2">
                 Receiver Name: {data?.salvage_recievername}
               </p>
+              <p className=" my-2">
+                Seller Name: {data?.fullname}
+              </p>
+              <p className=" my-2">
+                Courier: {data?.courier}
+              </p>
+              {displayCourierRef}
               <p className=" my-2">
                 Mobile Number: {data?.salvage_recieverMobile}
               </p>

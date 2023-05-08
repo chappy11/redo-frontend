@@ -73,7 +73,7 @@ export default function RefubrishCart() {
 
   return (
     <PageContainer>
-      <div className=" w-1/2 m-auto">
+      <div className=" mx-5 md:w-1/2 lg:w-1/2 md:m-auto lg:m-auto">
         <h1>My Cart</h1>
         <div className=" h-5" />
         {data.map((item, i) => (

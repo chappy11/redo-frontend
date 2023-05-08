@@ -151,7 +151,7 @@ export default function RepubrishItemDetails() {
   
   return (
     <PageContainer>
-      <div className=" w-3/4 md:w-1/2 lg:w-1/2 m-auto">
+      <div className=" mx-5  md:w-3/4 lg:w-3/4 md:m-auto lg:m-auto mb-10">
         <h1 className=" text-xl font-bold">Device Details</h1>
         <Modal
           showModal={isOpenRatingModal}

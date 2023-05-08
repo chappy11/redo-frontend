@@ -34,6 +34,7 @@ function UserSellingOrderDetails() {
       const payload = {
         id: id,
         status: status,
+        courierRef:courierRef
       };
       const resp = await updateStatus(payload);
 
@@ -92,7 +93,7 @@ function UserSellingOrderDetails() {
 
   return (
     <PageContainer>
-      <div className=" w-3/4 m-auto">
+      <div className=" mx-5 md:m-auto lg:m-auto md:w-3/4 lg:w-3/4 mb-10">
         <h1>Transaction Details</h1>
         <div className=" h-5" />
         <Modal

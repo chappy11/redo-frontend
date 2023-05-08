@@ -148,7 +148,7 @@ export default function ViewDetails() {
   
   return (
     <PageContainer>
-      <div className=" m-auto w-1/2 md:w-3/4 lg:w-3/4">
+      <div className=" mx-5 md:m-auto lg:m-auto md:w-3/4 lg:w-3/4">
         <Modal
           showModal={isOpenReview}
           header="Review"
