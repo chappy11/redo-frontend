@@ -98,11 +98,6 @@ const SELLER: NavItemTypes[] = [
     onClick: () => (window.location.href = RoutesPath.NOTIFICATION),
   },
   {
-    name: "View Profile",
-    url: RoutesPath.HOME,
-    onClick: () => (window.location.href = RoutesPath.HOME),
-  },
-  {
     name: "My Shop",
     url: RoutesPath.SHOPS,
     onClick: () => (window.location.href = RoutesPath.SHOPS),
