@@ -18,15 +18,15 @@ export default function LoginPage() {
   const handleRequest = async () => {
     try {
       if (payload) {
-        const data = await sendRequest(payload);
-        if (data === undefined || !data) {
-          alertError("Invalid Credential");
+        const resp = await sendRequest(payload);
+        if(resp.status == 0){
+          alertError(resp.message);
           return;
         }
-
-        save(data);
+        
+        save(resp.data);
         let navigateTo =
-          (data as UserInfo).userRoles === UserEnum.ADMIN
+          (resp.data as UserInfo).userRoles === UserEnum.ADMIN
             ? (window.location.href = RoutesPath.ADMIN)
             : (window.location.href = RoutesPath.DASHBOARD);
 

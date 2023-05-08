@@ -6,7 +6,7 @@ import { UserInfo } from "../../types/User.type";
 
 type UseLoginResponse = {
   isLoading: boolean;
-  sendRequest: (payload: LoginPayload) => void;
+  sendRequest: (payload: LoginPayload) => any;
 };
 
 export default function useLogin(): UseLoginResponse {
@@ -14,23 +14,18 @@ export default function useLogin(): UseLoginResponse {
   const { alertError } = useAlertOptions();
 
   const sendRequest = useCallback(
-    async (payload: LoginPayload): Promise<UserInfo | undefined> => {
+    async (payload: LoginPayload):Promise<any> => {
       try {
         setIsLoading(true);
         const resp = await login(payload);
-
-        if (resp.data.status === "0") {
-          alertError(resp.data.message);
-        }
-
-        return resp.data.data;
+        return resp.data;
       } catch (error) {
         alertError("Something went wrong");
       } finally {
         setIsLoading(false);
       }
     },
-    []
+    [alertError]
   );
 
   return {
