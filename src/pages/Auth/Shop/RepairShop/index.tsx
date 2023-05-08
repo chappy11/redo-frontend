@@ -31,7 +31,7 @@ export default function RepairShop(props: Props) {
           <ServiceItem
             icon={<GoTools />}
             onClick={handleGoToRepubrish}
-            name="Repubrish Item"
+            name="Refurbish Item"
           />
           <ServiceItem
             icon={<GoHistory />}
