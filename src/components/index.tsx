@@ -13,6 +13,7 @@ import Item from "./Item";
 import CartItem from "./CartItem";
 import OrderItem from "./OrderItem";
 import PaymentList from "./PaymentList";
+import Tabular from "./Tabular";
 
 export {
   Navigation,
@@ -30,4 +31,5 @@ export {
   Item,
   CartItem,
   PaymentList,
+  Tabular,
 };

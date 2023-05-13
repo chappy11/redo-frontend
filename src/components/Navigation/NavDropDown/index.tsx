@@ -14,11 +14,6 @@ export default function NavDropDown(props: Props) {
       className=" fixed top-24 right-5 w-40 bg-white z-50
     "
     >
-      <NavDropDownLinks
-        onClick={() => (window.location.href = RoutesPath.PROFILE)}
-        name={props.user ? props.user.fullname : ""}
-        url={RoutesPath.PROFILE}
-      />
       {props.links.map((val) => (
         <>
           <NavDropDownLinks

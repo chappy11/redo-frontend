@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { PageContainer } from "../../../../components";
+import { PageContainer, Tabular } from "../../../../components";
 import useGetAllSuccessTransaction from "../../../../hooks/RefubrishOrder/useGetAllSuccessTransaction";
 import ItemCard from "../../RefubrishOrder/ItemCard";
 import { RoutesPath } from "../../../../types/RoutesPath.enum";
@@ -78,6 +78,9 @@ export default function RepairerHistory() {
           ],
     }
 },[data])
+
+
+
   return (
     <PageContainer>
       <div className=" mx-5 md:w-1/2 lg:w-1/2 md:m-auto lg:m-auto">
@@ -93,7 +96,16 @@ export default function RepairerHistory() {
         <div className=" bg-white shadow-lg my-5 p-4">
         <Bar options={options} data={dataSet} className=" w-full" />
         </div>
-        {displayData}
+        <div className=" bg-white shadow-lg my-5 p-4">
+        <Tabular 
+              keys={['ref_id','seller','total_amount','date']}
+              header={['Ref No','Fullname','Amount','Date','Action']} 
+              data={data}
+              onClick={(id)=>handleClick(id)}
+              id={'refubrishorder_id'}
+            />
+            <p className=" text-right font-bold">Total Amount: {convertMoney(getTotal)}</p>
+        </div>
       </div>
     </PageContainer>
   );

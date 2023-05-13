@@ -181,13 +181,14 @@ export default function Navigation() {
               {count}
             </p>
           </li>
-          <li onClick={() => setIsOpen((e) => !e)}>
+          <li onClick={() => setIsOpen((e) => !e)} className=" mr-10">
             {" "}
             <img
               src={BASE_URL + user.profilePic}
-              className=" h-16 w-16 mr-10 rounded-full bg-white"
+              className=" h-16 w-16 m-auto rounded-full bg-white"
               alt="profile"
             />
+            <p>{user.fullname}</p>
           </li>
         </>
       );

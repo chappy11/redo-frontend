@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { PageContainer } from "../../../../components";
+import { PageContainer, Tabular } from "../../../../components";
 import useGetAllSuccessTransactions from "../../../../hooks/salvageOrder/useGetAllSuccessTransactions";
 import ItemCard from "../../UserSellingOrder/components/ItemCard";
 import { convertMoney } from "../../../../utils/money.utils";
@@ -16,6 +16,7 @@ import {
   } from "chart.js";
 import { MONTHS } from "../../../../constant/months";
 import { getMonth } from "../../../../utils/date.util";
+import { RoutesPath } from "../../../../types/RoutesPath.enum";
 
 
 ChartJS.register(
@@ -81,6 +82,13 @@ export default function SellerHistory() {
   const getTotal = useMemo(() => {
     return data.reduce((x, y) => x + parseFloat(y.order_totalAmount), 0);
   }, [data]);
+
+  
+    function handleClick(id:any) {
+      window.location.href =
+        RoutesPath.USER_SELLING_TRANSACTION_DETAILS +id;
+    }
+  
   return (
     <PageContainer>
       <div className=" mx-5 md:w-1/2 lg:w-1/2 md:m-auto lg:m-auto">
@@ -95,10 +103,18 @@ export default function SellerHistory() {
           </div>
         </div>
         <div className=" bg-white shadow-lg my-5 p-4">
-        <Bar options={options} data={dataSet} />
+           <Bar options={options} data={dataSet} />
         </div>
-        
-        {display}
+        <div className=" bg-white shadow-lg my-5 p-4">
+           <Tabular 
+              keys={['ref_id','fullname','order_totalAmount','salvageOrder_updateAt']}
+              header={['Ref No','Fullname','Amount','Date','Action']} 
+              data={data}
+              onClick={(id)=>handleClick(id)}
+              id={'salvageorder_id'}
+            />
+             <p className=" text-right font-bold">Total Amount: {convertMoney(getTotal)}</p>
+        </div>
       </div>
     </PageContainer>
   );
