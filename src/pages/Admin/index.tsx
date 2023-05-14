@@ -1,30 +1,22 @@
 import React, { useMemo } from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
+
+import {  ChartOptions } from 'chart.js';
+import { Bar as BarChart } from 'react-chartjs-2';
 
 import Card from "./components/Card";
 import Container from "./components/Container";
 import useGetAllUser from "../../hooks/user/useGetAllUser";
 import { getMonth } from "../../utils/date.util";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
-export const options = {
+const options: ChartOptions<'bar'> = {
+  scales: {
+    y: {
+      ticks: {
+        stepSize: 1,
+      },
+    },
+  },
   responsive: true,
   plugins: {
     legend: {
@@ -85,7 +77,7 @@ export default function Admin() {
           <div className=" h-5" />
           <Card>
             <p>Dasboard</p>
-            <Bar options={options} data={dataSet} />;
+            <BarChart  options={options} data={dataSet} />;
           </Card>
         </div>
       </Container>

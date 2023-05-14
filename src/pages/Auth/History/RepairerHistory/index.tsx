@@ -63,15 +63,18 @@ export default function RepairerHistory() {
 
     MONTHS.forEach((elements,i)=>{
         const getDataPerMonth = data.filter((val,idx)=>getMonth(val.r_order_data) == i);
-
-        arr.push(getDataPerMonth.length);
+        let total = 0;
+        getDataPerMonth.forEach((val,x)=>{
+          total += parseFloat(val.total_amount);
+        })
+        arr.push(total);
     })
 
     return {
         labels:MONTHS,
         datasets: [
             {
-              label: "Success Salvage Item Order Per Month",
+              label: "Success Refubrish Item Order Per Month",
               data: arr,
               backgroundColor: "rgba(255, 99, 132, 0.5)",
             },

@@ -48,6 +48,7 @@ import ShopDetails from "./pages/Admin/shop/PendingShop/ShopDetails";
 import RefurbrishReport from "./pages/Admin/RefurbrishReport";
 import SalvageReport from "./pages/Admin/SalvageReport";
 import Notification from "./pages/Auth/Notification";
+import IncomeReports from "./pages/Admin/IncomeReports";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -68,6 +69,7 @@ function App() {
           <Route path={RoutesPath.ADMIN_SHOP_DETAILS + ":id"} element={<ShopDetails/>}/>
           <Route path={RoutesPath.REFURBRISH_REPORT} element={<RefurbrishReport/>}/>
           <Route path={RoutesPath.SALVAGE_REPORT} element={<SalvageReport/>}/>
+          <Route path={RoutesPath.MY_INCOME} element={<IncomeReports/>}/>
         </>
       );
   }, [user]);

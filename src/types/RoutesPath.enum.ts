@@ -30,6 +30,8 @@ export enum RoutesPath {
   TRANSACTION_DETAILS = "/user_transaction/",
   REFURBRISH_REPORT = '/refurbrishreports',
   SALVAGE_REPORT = '/salvagereports',
+  MY_INCOME = '/income',
+  
   //repubrish
   REPUBRISH_ITEMS = "/repubrishitems",
   REPUBRISH_ITEMS_DETAILS = "/repubrishitems/",

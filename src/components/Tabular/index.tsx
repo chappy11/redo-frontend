@@ -7,9 +7,10 @@ type Props = {
     keys: string[];
     onClick:(id:any)=>void;
     id:string;
+    isAlloweView?:boolean;
 }
 export default function Tabular(props:Props) {
-    const {header,data,keys,onClick,id} = props;
+    const {header,data,keys,onClick,id,isAlloweView=true} = props;
   
     return (
     <table className=' w-full'>
@@ -28,7 +29,10 @@ export default function Tabular(props:Props) {
                     {keys.map((itm,y)=>(
                         <td key={y.toString()} className=' border border-slate-400 p-4'>{val[itm]}</td>
                     ))}
-                    <td className=' border border-slate-400 p-4'><p className=' text-blue-600 hover:text-blue-400 cursor-pointer text-center' onClick={()=>onClick(val[id])}>View</p></td>
+                    {isAlloweView &&
+ <td className=' border border-slate-400 p-4'><p className=' text-blue-600 hover:text-blue-400 cursor-pointer text-center' onClick={()=>onClick(val[id])}>View</p></td>
+                    }
+                   
                 </tr>
             ))}
         </tbody>

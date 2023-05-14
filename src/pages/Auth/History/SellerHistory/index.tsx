@@ -63,8 +63,11 @@ export default function SellerHistory() {
 
     MONTHS.forEach((elements,i)=>{
         const getDataPerMonth = data.filter((val,idx)=>getMonth(val.r_order_data) == i);
-
-        arr.push(getDataPerMonth.length);
+        let total = 0;
+        getDataPerMonth.forEach((val,x)=>{
+          total += parseFloat(val.order_totalAmount);
+        })
+        arr.push(total);
     })
 
     return {

@@ -32,6 +32,12 @@ const NAV: NavType[] = [
     children: null,
   },
   {
+    name: "Income",
+    icon: <TbLayoutDashboard />,
+    routes: RoutesPath.MY_INCOME,
+    children: null,
+  },
+  {
     name: "Manage Users",
     icon: <FaUserCircle />,
     routes: RoutesPath.ADMIN,
