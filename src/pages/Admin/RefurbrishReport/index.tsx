@@ -7,24 +7,17 @@ import { MONTHS } from '../../../constant/months';
 import { getMonth } from '../../../utils/date.util';
 import Card from '../components/Card';
 import Table from '../../../components/Table';
+import { convertMoney } from '../../../utils/money.utils';
 
-// ChartJS.register(
-//     CategoryScale,
-//     LinearScale,
-//     BarElement,
-//     Title,
-//     Tooltip,
-//     Legend
-//   );
 
 const options: ChartOptions<'bar'> = {
-  scales: {
-    y: {
-      ticks: {
-        stepSize: 1,
-      },
-    },
-  },
+  // scales: {
+  //   y: {
+  //     ticks: {
+  //       stepSize: 1,
+  //     },
+  //   },
+  // },
   responsive: true,
   plugins: {
     legend: {
@@ -46,8 +39,11 @@ export default function RefurbrishReport() {
 
         MONTHS.forEach((elements,i)=>{
             const getDataPerMonth = transactions.filter((val,idx)=>getMonth(val.r_order_data) == i);
-
-            arr.push(getDataPerMonth.length);
+            let total = 0;
+            getDataPerMonth.forEach((val,x)=>{
+              total += parseFloat(val.total_amount);
+            })
+            arr.push(total);
         })
 
         return {
@@ -60,6 +56,15 @@ export default function RefurbrishReport() {
                 },
               ],
         }
+    },[transactions])
+
+    const total = useMemo(()=>{
+      let total = 0;
+      transactions.forEach((val,i)=>{
+        total+=parseFloat(val.total_amount);
+      })
+
+      return convertMoney(total.toString());
     },[transactions])
 
     const displayData = useMemo(()=>{
@@ -84,6 +89,7 @@ export default function RefurbrishReport() {
             <BarChart  options={options} data={dataSet} />;
             <div className=' my-5'/>
             <Table header={header} >{displayData}</Table>
+            <p className=' text-end font-bold mt-5'>Total: {total}</p>
             </Card>
         </div>
     </Container>

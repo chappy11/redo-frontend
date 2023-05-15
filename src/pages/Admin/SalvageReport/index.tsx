@@ -11,14 +11,15 @@ import Container from '../components/Container';
 
 
 import useGetAllSuccessSalvageOrder from '../../../hooks/useGetAllSuccessSalvageOrder';
+import { convertMoney } from '../../../utils/money.utils';
 const options: ChartOptions<'bar'> = {
-  scales: {
-    y: {
-      ticks: {
-        stepSize: 1,
-      },
-    },
-  },
+  // scales: {
+  //   y: {
+  //     ticks: {
+  //       stepSize: 1,
+  //     },
+  //   },
+  // },
   responsive: true,
   plugins: {
     legend: {
@@ -42,8 +43,11 @@ export default function SalvageReport() {
 
         MONTHS.forEach((elements,i)=>{
             const getDataPerMonth = transactions.filter((val,idx)=>getMonth(val.r_order_data) == i);
-
-            arr.push(getDataPerMonth.length);
+            let total = 0;
+            getDataPerMonth.forEach((val,x)=>{
+              total += parseFloat(val.order_totalAmount);
+            })
+            arr.push(total);
         })
 
         return {
@@ -71,6 +75,16 @@ export default function SalvageReport() {
         ))
     },[transactions])
 
+    const total = useMemo(()=>{
+      let total = 0;
+      transactions.forEach((val,i)=>{
+        total+=parseFloat(val.order_totalAmount);
+      })
+
+      return convertMoney(total.toString());
+    },[transactions])
+
+
     return (
     <Container>
         <div className=' m-auto w-3/4 mb-20'>
@@ -80,6 +94,7 @@ export default function SalvageReport() {
             <BarChart  options={options} data={dataSet} />;
             <div className=' my-5'/>
             <Table header={header} >{displayData}</Table>
+            <p className=' text-end font-bold mt-5'>Total: {total}</p>
             </Card>
         </div>
     </Container>
